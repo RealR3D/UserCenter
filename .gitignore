@@ -1,0 +1,20 @@
+# ignore .vs directory
+/.vs/
+
+# ignore .vscode directory
+/.vscode/
+
+# ignore dist directory
+/dist/
+
+# ignore build directory
+/build/
+
+# ignore node_modules directory
+/node_modules/
+
+# ignore .nupkg files
+*.nupkg
+
+# ignore package.json
+*.json

@@ -1,0 +1,353 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{ACE509C3-E1D1-4068-B46B-B3056C4E02E8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SS.Home</RootNamespace>
+    <AssemblyName>SS.Home</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="SiteServer.Plugin, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\SiteServer.Plugin.1.4.0\lib\net45\SiteServer.Plugin.dll</HintPath>
+    </Reference>
+    <Reference Include="SS.Login, Version=1.1.14.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\SS.Login.1.1.14\lib\net461\SS.Login.dll</HintPath>
+    </Reference>
+    <Reference Include="SS.SMS, Version=1.1.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\SS.SMS.1.1.8\lib\net461\SS.SMS.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="ThoughtWorks.QRCode, Version=1.0.4778.30637, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ThoughtWorks.QRCode.1.1.0\lib\ThoughtWorks.QRCode.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Api\ApiHttpGet.cs" />
+    <Compile Include="Api\ApiHttpActionsPost.cs" />
+    <Compile Include="Api\ApiJsonActionsPost.cs" />
+    <Compile Include="Controls\SqlPager.cs" />
+    <Compile Include="Core\CacheUtils.cs" />
+    <Compile Include="Core\Utils.cs" />
+    <Compile Include="Main.cs" />
+    <Compile Include="Model\ConfigInfo.cs" />
+    <Compile Include="Model\MenuInfo.cs" />
+    <Compile Include="Model\GroupUserInfo.cs" />
+    <Compile Include="Model\GroupInfo.cs" />
+    <Compile Include="Model\OAuthInfo.cs" />
+    <Compile Include="Model\SystemConfigAttribute.cs" />
+    <Compile Include="Pages\PageMenu.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\PageMenuSettings.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\PageWritingSettings.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\PageWriting.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\PageSettings.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parse\StlHome.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Provider\GroupUserDao.cs" />
+    <Compile Include="Provider\MenuDao.cs" />
+    <Compile Include="Provider\OAuthDao.cs" />
+    <Compile Include="Provider\Dao.cs" />
+    <Compile Include="Provider\GroupDao.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\plugin-utils\fonts\fontawesome-webfont.eot" />
+    <None Include="assets\plugin-utils\fonts\fontawesome-webfont.ttf" />
+    <None Include="assets\plugin-utils\fonts\fontawesome-webfont.woff" />
+    <None Include="assets\plugin-utils\fonts\fontawesome-webfont.woff2" />
+    <None Include="assets\plugin-utils\fonts\FontAwesome.otf" />
+    <None Include="assets\plugin-utils\fonts\ionicons.eot" />
+    <None Include="assets\plugin-utils\fonts\ionicons.ttf" />
+    <None Include="assets\plugin-utils\fonts\ionicons.woff" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="assets\cleanslate.css" />
+    <Content Include="assets\css\style.css" />
+    <Content Include="assets\images\login_qq.png" />
+    <Content Include="assets\images\login_weibo.png" />
+    <Content Include="assets\images\login_weixin.png" />
+    <Content Include="assets\images\times.png" />
+    <Content Include="assets\js\ajaxUpload.js" />
+    <Content Include="assets\js\axios-0.17.1.min.js" />
+    <Content Include="assets\js\device.min.js" />
+    <Content Include="assets\js\jquery.imgareaselect.min.js" />
+    <Content Include="assets\js\jquery.js" />
+    <Content Include="assets\js\jquery.min.js" />
+    <Content Include="assets\js\sweetalert.min.js" />
+    <Content Include="assets\js\vee-validate-2.0.3.js" />
+    <Content Include="assets\js\vue-2.1.10.min.js" />
+    <Content Include="assets\js\vue.min.js" />
+    <Content Include="assets\layer\extend\layer.ext.js" />
+    <Content Include="assets\layer\layer.min.js" />
+    <Content Include="assets\layer\skin\default\icon_ext.png" />
+    <Content Include="assets\layer\skin\default\textbg.png" />
+    <Content Include="assets\layer\skin\default\xubox_ico0.png" />
+    <Content Include="assets\layer\skin\default\xubox_loading0.gif" />
+    <Content Include="assets\layer\skin\default\xubox_loading1.gif" />
+    <Content Include="assets\layer\skin\default\xubox_loading2.gif" />
+    <Content Include="assets\layer\skin\default\xubox_loading3.gif" />
+    <Content Include="assets\layer\skin\default\xubox_title0.png" />
+    <Content Include="assets\layer\skin\layer.css" />
+    <Content Include="assets\layer\skin\layer.ext.css" />
+    <Content Include="assets\plugin-utils\css\bootstrap.min.css" />
+    <Content Include="assets\plugin-utils\css\font-awesome.min.css" />
+    <Content Include="assets\plugin-utils\css\ionicons.min.css" />
+    <Content Include="assets\plugin-utils\css\plugin-utils.css" />
+    <Content Include="assets\plugin-utils\fonts\fontawesome-webfont.svg" />
+    <Content Include="assets\plugin-utils\fonts\ionicons.svg" />
+    <Content Include="assets\plugin-utils\js\bootstrap.min.js" />
+    <Content Include="assets\plugin-utils\js\jquery.min.js" />
+    <Content Include="assets\plugin-utils\js\plugin-utils.js" />
+    <Content Include="assets\script.js" />
+    <Content Include="assets\style.css" />
+    <Content Include="assets\style.min.css" />
+    <Content Include="assets\template.html" />
+    <Content Include="assets\template.min.html" />
+    <Content Include="default_avatar.png" />
+    <Content Include="home_logo.png" />
+    <Content Include="modalTest.aspx" />
+    <Content Include="PageMenu.aspx" />
+    <Content Include="PageMenuSettings.aspx" />
+    <Content Include="PageOAuth.aspx" />
+    <Content Include="PageOAuthQq.aspx" />
+    <Content Include="PageOAuthWeibo.aspx" />
+    <Content Include="PageOAuthWeixin.aspx" />
+    <Content Include="PageSettings.aspx" />
+    <Content Include="PageWriting.aspx" />
+    <Content Include="PageWritingSettings.aspx" />
+    <Content Include="src\app.css" />
+    <Content Include="src\app.jsx" />
+    <Content Include="src\base.css" />
+    <Content Include="src\components\footer\index.jsx" />
+    <Content Include="src\components\index.js" />
+    <Content Include="src\components\loading\index.jsx" />
+    <Content Include="src\components\miniloading\index.jsx" />
+    <Content Include="src\findpwd\index.jsx" />
+    <Content Include="src\findpwd\routes.js" />
+    <Content Include="src\images\404.png" />
+    <Content Include="src\images\areaselect\border-h.gif" />
+    <Content Include="src\images\areaselect\border-v.gif" />
+    <Content Include="src\images\avatar.jpg" />
+    <Content Include="src\images\del.png" />
+    <Content Include="src\images\ftSina.jpg" />
+    <Content Include="src\images\ftWX.jpg" />
+    <Content Include="src\images\hmc3More.jpg" />
+    <Content Include="src\images\ico-guard-32.png" />
+    <Content Include="src\images\icon-arrow.svg" />
+    <Content Include="src\images\itmClose.gif" />
+    <Content Include="src\images\logo-text-pic.png" />
+    <Content Include="src\images\m2squer.jpg" />
+    <Content Include="src\images\pointes_blue.png" />
+    <Content Include="src\images\right.png" />
+    <Content Include="src\images\selIcon.jpg" />
+    <Content Include="src\images\sign-up-succeed.png" />
+    <Content Include="src\images\submit.png" />
+    <Content Include="src\images\uc-account-icon.png" />
+    <Content Include="src\images\uc-avatar-bg.png" />
+    <Content Include="src\images\uc-btn.png" />
+    <Content Include="src\images\uc-ico.png" />
+    <Content Include="src\images\uc-ico2.png" />
+    <Content Include="src\images\uc-ico3.png" />
+    <Content Include="src\images\uc-login-bg.png" />
+    <Content Include="src\images\uc-mainnav-bg.png" />
+    <Content Include="src\images\uc-panel-bg.png" />
+    <Content Include="src\images\uc-password-icon.png" />
+    <Content Include="src\images\uc-QQ-icon-green.png" />
+    <Content Include="src\images\uc-QQ-icon.png" />
+    <Content Include="src\images\uc-sina-icon-green.png" />
+    <Content Include="src\images\uc-sina-icon.png" />
+    <Content Include="src\images\uc-weixin-icon-green.png" />
+    <Content Include="src\images\uc-weixin-icon.png" />
+    <Content Include="src\imgareaselect-default.css" />
+    <Content Include="src\index.css" />
+    <Content Include="src\index.html" />
+    <Content Include="src\layout.jsx" />
+    <Content Include="src\lib\actions\config.js" />
+    <Content Include="src\lib\api\api.js" />
+    <Content Include="src\lib\api\client\files\index.js" />
+    <Content Include="src\lib\api\client\index.js" />
+    <Content Include="src\lib\api\client\users\index.js" />
+    <Content Include="src\lib\api\client\writing\index.js" />
+    <Content Include="src\lib\api\http.js" />
+    <Content Include="src\lib\api\utils\base64.js" />
+    <Content Include="src\lib\api\utils\utf8.js" />
+    <Content Include="src\lib\client.js" />
+    <Content Include="src\lib\enums\alert\index.js" />
+    <Content Include="src\lib\enums\index.js" />
+    <Content Include="src\lib\enums\restmethod\index.js" />
+    <Content Include="src\lib\models\config\index.js" />
+    <Content Include="src\lib\models\content\index.js" />
+    <Content Include="src\lib\models\group\index.js" />
+    <Content Include="src\lib\models\index.js" />
+    <Content Include="src\lib\models\menu\index.js" />
+    <Content Include="src\lib\models\site\index.js" />
+    <Content Include="src\lib\models\tablecolumn\index.js" />
+    <Content Include="src\lib\models\userlog\index.js" />
+    <Content Include="src\lib\models\user\index.js" />
+    <Content Include="src\lib\reducers\config.js" />
+    <Content Include="src\lib\reducers\index.js" />
+    <Content Include="src\lib\store\configStore.js" />
+    <Content Include="src\lib\utils\const\index.js" />
+    <Content Include="src\lib\utils\index.js" />
+    <Content Include="src\lib\utils\swal\index.js" />
+    <Content Include="src\lib\utils\upload\index.js" />
+    <Content Include="src\lib\utils\utilities\index.js" />
+    <Content Include="src\login.css" />
+    <Content Include="src\login\index.jsx" />
+    <Content Include="src\login\routes.js" />
+    <Content Include="src\logout\index.jsx" />
+    <Content Include="src\logout\routes.js" />
+    <Content Include="src\main.css" />
+    <Content Include="src\react-datetime.css" />
+    <Content Include="src\react-select.css" />
+    <Content Include="src\reg.css" />
+    <Content Include="src\reg\index.jsx" />
+    <Content Include="src\reg\routes.js" />
+    <Content Include="src\routes.js" />
+    <Content Include="src\store.js" />
+    <Content Include="src\swal.css" />
+    <Content Include="src\z404\404.css" />
+    <Content Include="src\z404\index.jsx" />
+    <Content Include="src\z404\routes.js" />
+    <Content Include="src\__\components\header\index.jsx" />
+    <Content Include="src\__\components\imageupload\index.jsx" />
+    <Content Include="src\__\components\index.js" />
+    <Content Include="src\__\components\slider\index.jsx" />
+    <Content Include="src\__\components\ueditor\index.jsx" />
+    <Content Include="src\__\feature\createProject\index.jsx" />
+    <Content Include="src\__\feature\createProject\routes.js" />
+    <Content Include="src\__\feature\layout.jsx" />
+    <Content Include="src\__\feature\myProject\index.jsx" />
+    <Content Include="src\__\feature\myProject\routes.js" />
+    <Content Include="src\__\feature\projectProfile\index.jsx" />
+    <Content Include="src\__\feature\projectProfile\routes.js" />
+    <Content Include="src\__\feature\routes.js" />
+    <Content Include="src\__\feature\uploadFile\index.jsx" />
+    <Content Include="src\__\feature\uploadFile\routes.js" />
+    <Content Include="src\__\index.jsx" />
+    <Content Include="src\__\info\layout.jsx" />
+    <Content Include="src\__\info\password\index.jsx" />
+    <Content Include="src\__\info\password\routes.js" />
+    <Content Include="src\__\info\profile\index.jsx" />
+    <Content Include="src\__\info\profile\routes.js" />
+    <Content Include="src\__\info\routes.js" />
+    <Content Include="src\__\layout.jsx" />
+    <Content Include="src\__\menu\components\index.js" />
+    <Content Include="src\__\menu\components\menu\index.jsx" />
+    <Content Include="src\__\menu\layout.jsx" />
+    <Content Include="src\__\menu\routes.js" />
+    <Content Include="src\__\menu\__menuid\index.jsx" />
+    <Content Include="src\__\menu\__menuid\routes.js" />
+    <Content Include="src\__\profile\avatar\index.jsx" />
+    <Content Include="src\__\profile\avatar\routes.js" />
+    <Content Include="src\__\profile\basic\index.jsx" />
+    <Content Include="src\__\profile\basic\routes.js" />
+    <Content Include="src\__\profile\components\index.js" />
+    <Content Include="src\__\profile\components\menu\index.jsx" />
+    <Content Include="src\__\profile\detail\index.jsx" />
+    <Content Include="src\__\profile\detail\routes.js" />
+    <Content Include="src\__\profile\layout.jsx" />
+    <Content Include="src\__\profile\routes.js" />
+    <Content Include="src\__\profile\username\index.jsx" />
+    <Content Include="src\__\profile\username\routes.js" />
+    <Content Include="src\__\routes.js" />
+    <Content Include="src\__\security\components\index.js" />
+    <Content Include="src\__\security\components\menu\index.jsx" />
+    <Content Include="src\__\security\email\index.jsx" />
+    <Content Include="src\__\security\email\routes.js" />
+    <Content Include="src\__\security\index.jsx" />
+    <Content Include="src\__\security\layout.jsx" />
+    <Content Include="src\__\security\logs_login\index.jsx" />
+    <Content Include="src\__\security\logs_login\routes.js" />
+    <Content Include="src\__\security\logs_sensitive\index.jsx" />
+    <Content Include="src\__\security\logs_sensitive\routes.js" />
+    <Content Include="src\__\security\mobile\index.jsx" />
+    <Content Include="src\__\security\mobile\routes.js" />
+    <Content Include="src\__\security\password\index.jsx" />
+    <Content Include="src\__\security\password\routes.js" />
+    <Content Include="src\__\security\routes.js" />
+    <Content Include="src\__\service\index.jsx" />
+    <Content Include="src\__\service\layout.jsx" />
+    <Content Include="src\__\service\routes.js" />
+    <Content Include="src\__\usermanage\createuser\index.jsx" />
+    <Content Include="src\__\usermanage\createuser\routes.js" />
+    <Content Include="src\__\usermanage\layout.jsx" />
+    <Content Include="src\__\usermanage\routes.js" />
+    <Content Include="src\__\usermanage\userlist\index.jsx" />
+    <Content Include="src\__\usermanage\userlist\routes.js" />
+    <Content Include="src\__\writing\components\attributes\index.jsx" />
+    <Content Include="src\__\writing\components\index.js" />
+    <Content Include="src\__\writing\components\menu\index.jsx" />
+    <Content Include="src\__\writing\edit\routes.js" />
+    <Content Include="src\__\writing\edit\__siteid__channelid__id\index.jsx" />
+    <Content Include="src\__\writing\edit\__siteid__channelid__id\routes.js" />
+    <Content Include="src\__\writing\index.jsx" />
+    <Content Include="src\__\writing\layout.jsx" />
+    <Content Include="src\__\writing\list\index.jsx" />
+    <Content Include="src\__\writing\list\routes.js" />
+    <Content Include="src\__\writing\new\index.jsx" />
+    <Content Include="src\__\writing\new\routes.js" />
+    <Content Include="src\__\writing\routes.js" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>此项目引用这台计算机上缺少的 NuGet 程序包。使用 NuGet 程序包还原可下载这些程序包。有关详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
+    </PropertyGroup>
+  </Target>
+</Project>

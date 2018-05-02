@@ -1,0 +1,11 @@
+F:\UserCenter\obj\Debug\SS.Home.csproj.CoreCompileInputs.cache
+F:\UserCenter\bin\SS.Home.dll
+F:\UserCenter\bin\SS.Home.pdb
+F:\UserCenter\bin\Newtonsoft.Json.dll
+F:\UserCenter\bin\SiteServer.Plugin.dll
+F:\UserCenter\bin\SS.Login.dll
+F:\UserCenter\bin\SS.SMS.dll
+F:\UserCenter\bin\Newtonsoft.Json.xml
+F:\UserCenter\obj\Debug\SS.Home.csproj.CopyComplete
+F:\UserCenter\obj\Debug\SS.Home.dll
+F:\UserCenter\obj\Debug\SS.Home.pdb

@@ -15,6 +15,3 @@
 
 # ignore .nupkg files
 *.nupkg
-
-# ignore package.json
-*.json

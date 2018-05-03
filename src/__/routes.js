@@ -28,7 +28,8 @@ export default {
         require('./info/routes').default,
         require('./service/routes').default,
         require('./feature/routes').default,
-        require('./usermanage/routes').default
+        require('./usermanage/routes').default,
+        require('./tutorial/routes').default
       ]);
     });
   },

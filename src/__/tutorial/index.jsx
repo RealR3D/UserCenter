@@ -7,17 +7,45 @@ class IndexPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {videoList: [
-            {to:'/tutorial/1',title:'飞行器介绍'},
-            {to:'/tutorial/2',title:'遥控器介绍'},
-            {to:'/tutorial/3',title:'遥控器天线介绍'},
-            {to:'/tutorial/4',title:'如何飞行'},
-            {to:'/tutorial/5',title:'首次飞行'},
-            {to:'/tutorial/6',title:'智能返航介绍'},
-            {to:'/tutorial/7',title:'兴趣点环绕'},
+            {to:'/tutorial/1',title:'飞行器介绍',videoSrc:'https://3dvideodata.oss-cn-beijing.aliyuncs.com/video/1.mp4'},
+            {to:'/tutorial/2',title:'遥控器介绍',videoSrc:'https://3dvideodata.oss-cn-beijing.aliyuncs.com/video/2.mp4'},
+            {to:'/tutorial/3',title:'遥控器天线介绍',videoSrc:'https://3dvideodata.oss-cn-beijing.aliyuncs.com/video/3.mp4'},
+            {to:'/tutorial/4',title:'如何飞行',videoSrc:'https://3dvideodata.oss-cn-beijing.aliyuncs.com/video/4.mp4'},
+            {to:'/tutorial/5',title:'首次飞行',videoSrc:'https://3dvideodata.oss-cn-beijing.aliyuncs.com/video/5.mp4'},
+            {to:'/tutorial/6',title:'智能返航介绍',videoSrc:'https://3dvideodata.oss-cn-beijing.aliyuncs.com/video/6.mp4'},
+            {to:'/tutorial/7',title:'兴趣点环绕',videoSrc:'https://3dvideodata.oss-cn-beijing.aliyuncs.com/video/7.mp4'},
         ]};
+        this.state.curVideo = null
+        // this.handleChange = this.handleChange.bind(this);
+
+    }
+    handleClick(index){
+        // console.log(p,"hhhhh")
+        return e => {
+            this.state.curVideo = this.state.videoList[index].videoSrc
+            this.setState({"curVideo": this.state.curVideo});
+
+            console.log("点击了",this.state.curVideo,e)
+        }
+
+    }
+    // handleChange (ev) {
+    //     console.log("状态改变",ev,ev.target.value)
+    //     this.setState({"curVideo":this.state.curVideo});
+    // }
+    hideLayer(){
+        return e => {
+
+            this.state.curVideo = null
+            this.setState({"curVideo": this.state.curVideo});
+            console.log("隐藏",this.state.curVideo,e)
+        } 
     }
     render() {
-        var list = () => {
+        let value = this.state.curVideo
+        console.log("渲染",value)
+        let styleLayer = "display:block;";
+        var videoList = () => {
             var res = [];
             for(var i = 0; i < 7; i++) {
                 res.push(<div key={i}>
@@ -26,13 +54,13 @@ class IndexPage extends React.Component {
                             <div className="tpl-i-title" style={{fontSize: 18}}>
                                {this.state.videoList[i].title}
                             </div>
-
-                                <Link to={`/tutorial/${i+1}`} className="nav-link tpl-table-images-content-i">
+                            {/* to={`/tutorial/${i+1}`} */}
+                                <div className="nav-link tpl-table-images-content-i" onClick={this.handleClick(i)}>
 
                                     <span className="tpl-table-images-content-i-shadow">
                                     </span>
                                     <img src={`assets/img/video-cover/cover${i+1}.png`} alt=""/>
-                                </Link>
+                                </div>
 
                             {/* <div className="tpl-table-images-content-block">
                                 <div className="tpl-i-font">
@@ -82,7 +110,7 @@ class IndexPage extends React.Component {
                                     </div>
                                 </div>
                             </div> */}
-                            {list()}
+                            {videoList()}
 
 
                         </div>
@@ -90,49 +118,15 @@ class IndexPage extends React.Component {
                     </div>
                 </div>
             </div>
-        </div>);
-    }
-}
-class VideoList extends React.Component {
-    constructor (props) {
-        super(props);
-        this.state = {videoList: [
-            {to:'/tutorial/1',title:'飞行器介绍',
-            to:'/tutorial/2',title:'遥控器介绍'}
-        ]};
-    }
-    componentDidMount () {
+            <div className="player-layer"  style={{display: value? "block":"none"}} onClick={this.hideLayer()}>
 
-    }
-    render () {
-        const {videoList} = this.state;
-        return (
-            <div className="am-u-sm-12 am-u-md-6 am-u-lg-4">
-                <div className="tpl-table-images-content">
-                    {/* <div className="tpl-table-images-content-i-time">发布时间：2016-09-12</div> */}
-                    <div className="tpl-i-title">
-                        “你的旅行，是什么颜色？” 晒照片，换北欧梦幻极光之旅！
-                    </div>
-                    <Link className="tpl-table-images-content-i">
-                        <div className="tpl-table-images-content-i-info">
-                            <span className="ico">
-                    </span>
-                    </div>
-                        <Link to="/tutorial/1" className="nav-link">
-
-                            <span className="tpl-table-images-content-i-shadow">
-                            </span>
-                            <img src="assets/img/32.jpg" alt=""/>
-                        </Link>
-                    </Link>
-
-                    <div className="tpl-table-images-content-block">
-                        <div className="tpl-i-font">
-                            你最喜欢的艺术作品，告诉大家它们的------名图画，色彩，交织，撞色，线条雕塑装置当代古代现代作品的照片。
-                        </div>
+                <div className="am-g">
+                    <div className="am-u-sm-12 am-u-md-9">
+                        <video src={this.state.curVideo}  controls="controls" style={{width: "100%"}}>当前浏览器不支持video标签</video>
                     </div>
                 </div>
             </div>
+        </div>
         );
     }
 }

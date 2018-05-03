@@ -543,7 +543,7 @@ ul.tpl-dropdown-content li>a.tpl-dropdown-content-message:last-child {
     background: #fff;
     border-radius: 6px;
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    height: 100%;
+    height: 600px;
 }
 
 .tpl-left-nav-title {
@@ -1491,8 +1491,8 @@ ul.tpl-dropdown-content li>a.tpl-dropdown-content-message:last-child {
 .tpl-block {
     font-size: 18px;
     height: 540px;
-    overflow-x: hidden;
-    overflow-y: auto;
+    /* overflow-x: hidden;
+    overflow-y: auto; */
     position: relative;
 }
 

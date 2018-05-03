@@ -77,7 +77,8 @@ input, select, button {
 #grid #content-page {
     flex: 1;
     margin-left: 20px;
-    height: 600px;
+    /* height: 600px; */
+    height: 100%;
 }
 #upload-btn, #project-btn {
     width: 100%;
@@ -234,6 +235,7 @@ input, select, button {
     padding: 20px;
     background: #e9ecf3;
     height: 100%;
+    overflow-y: scroll;
 }
 #doc4 {
     zoom: 1

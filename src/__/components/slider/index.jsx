@@ -37,6 +37,7 @@ export default class Menu extends React.Component {
             item2: false,
             item3: false,
             item4: false,
+            item5: false,
             ["item" + active]: true
         }
         this.handleChange = this.handleChange.bind(this);
@@ -48,10 +49,12 @@ export default class Menu extends React.Component {
         this.props.userlevel !== "2" && this.usermanage.parentNode.removeChild(this.usermanage);
     }
     render() {
-        const {item0, item1, item2, item3, item4} = this.state,
+        const {item0, item1, item2, item3, item4, item5} = this.state,
             state1 = item1 ? "block" : "none",
             state2 = item2 ? "block" : "none",
-            state4 = item4 ? "block" : "none";
+            state4 = item4 ? "block" : "none",
+            state5 = item5 ? "block" : "none";
+console.log(item0, item1, item2, item3, item4, item5);
         return (
         <div className="tpl-left-nav tpl-left-nav-hover">
             <div className="tpl-left-nav-title">用户中心</div>
@@ -100,8 +103,13 @@ export default class Menu extends React.Component {
                         </ul>
                     </li>
                     <li className="tpl-left-nav-item">
-                        <Item to="/service/" value={item3} title="技术支持" iconName="iconfont icon-shouhou" onStateChange={this.handleChange} />
+                        <Item to="/tutorial/"  value={item5} title="在线教程" iconName="iconfont am-icon-book" onStateChange={this.handleChange} />
+
                     </li>
+                    {/* <li className="tpl-left-nav-item">
+                        <Item to="/service/" value={item3} title="技术支持" iconName="iconfont icon-shouhou" onStateChange={this.handleChange} />
+                    </li> */}
+
                 </ul>
             </div>
         </div>);

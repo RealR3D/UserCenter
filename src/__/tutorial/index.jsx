@@ -24,8 +24,10 @@ class IndexPage extends React.Component {
         return e => {
             this.state.curVideo = this.state.videoList[index].videoSrc
             this.setState({"curVideo": this.state.curVideo});
-
-            console.log("点击了",this.state.curVideo,e)
+            setTimeout(()=>{
+                document.getElementById("tutorial-video").play()
+            })
+            // console.log("点击了",this.state.curVideo,e)
         }
 
     }
@@ -38,12 +40,12 @@ class IndexPage extends React.Component {
 
             this.state.curVideo = null
             this.setState({"curVideo": this.state.curVideo});
-            console.log("隐藏",this.state.curVideo,e)
-        } 
+            // console.log("隐藏",this.state.curVideo,e)
+        }
     }
     render() {
         let value = this.state.curVideo
-        console.log("渲染",value)
+        // console.log("渲染",value)
         let styleLayer = "display:block;";
         var videoList = () => {
             var res = [];
@@ -122,7 +124,7 @@ class IndexPage extends React.Component {
 
                 <div className="am-g">
                     <div className="am-u-sm-12 am-u-md-9">
-                        <video src={this.state.curVideo}  controls="controls" style={{width: "100%"}}>当前浏览器不支持video标签</video>
+                        <video id="tutorial-video" src={this.state.curVideo}  controls="controls" style={{width: "100%"}}>当前浏览器不支持video标签</video>
                     </div>
                 </div>
             </div>

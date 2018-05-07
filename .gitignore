@@ -13,5 +13,8 @@
 # ignore node_modules directory
 /node_modules/
 
+# ignore video directory
+/assets/videos
+
 # ignore .nupkg files
 *.nupkg

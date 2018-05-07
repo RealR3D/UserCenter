@@ -736,3 +736,21 @@ p#back-to-top a span{border-radius:6px;display:block;height:60px;margin-bottom:5
 #nav {padding: 0 1.5rem;position: absolute;bottom: 0;width: 100%;font-size: 15px;}
 #nav span {float: left; line-height: 33px;}
 #page-list {text-align: right;margin: 0;user-select: none;-webkit-user-select: none;}
+
+
+/* tutorial */
+.player-layer{
+   position: fixed;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   background: rgba(0, 0, 0, .5);
+}
+.player-layer .am-g{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}

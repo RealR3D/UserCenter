@@ -1491,8 +1491,8 @@ ul.tpl-dropdown-content li>a.tpl-dropdown-content-message:last-child {
 .tpl-block {
     font-size: 18px;
     height: 540px;
-    overflow-x: hidden;
-    overflow-y: auto;
+    /* overflow-x: hidden;
+    overflow-y: auto; */
     position: relative;
 }
 

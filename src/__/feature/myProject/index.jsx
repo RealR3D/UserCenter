@@ -261,7 +261,8 @@ class ProjectPage extends React.Component {
                 data: {UserName: userName, index: pageNumber, select},
                 success (data) {
                     data = JSON.parse(data);
-                    const Counts = data.Counts, totalPages = Math.ceil(Counts / 10), list = data.data, len = list.length, pageCount = totalPages > 5 ? 5 : totalPages, minusIndex = Math.floor(pageCount / 2);
+                    const Counts = data.Counts, totalPages = Math.ceil(Counts / 10), list = data.data, len = list.length,
+                        pageCount = totalPages > 5 ? 5 : totalPages, minusIndex = Math.floor(pageCount / 2);
                     for (let i = 0; i < len; i ++) {
                         children.push(<Item key={i} index={i} data={list[i]} pageNumber={pageNumber} userlevel={userlevel} delChildren={_this.delChildren} updateChild={_this.updateChild} />);
                     };

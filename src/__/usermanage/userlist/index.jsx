@@ -48,9 +48,8 @@ class UserListPage extends React.Component {
                 data: {keys, index, UserName: Superior},
                 success (data) {
                     data = JSON.parse(data);
-                    const arr = [], list = data.data, Counts = data.Counts, len = list.length,
-                        pageList = [], pageListNumber = Math.ceil(Counts / 10),
-                        pageCount = pageListNumber <= 5 ? pageListNumber : 5;
+                    const arr = [], list = data.data, Counts = data.Counts, len = list.length, pageList = [], pageListNumber = Math.ceil(Counts / 10),
+                        pageCount = pageListNumber <= 5 ? pageListNumber : 5, minusIndex = Math.floor(pageCount / 2);
                     for (let i = 0; i < len; i ++) {
                         const {Id, Email, Mobile, UserName} = list[i];
                         arr.push(<Item key={i} UserName={UserName} Email={Email} Mobile={Mobile} Superior={Superior} />);

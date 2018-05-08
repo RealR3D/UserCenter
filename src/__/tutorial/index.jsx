@@ -40,6 +40,9 @@ class IndexPage extends React.Component {
 
             this.state.curVideo = null
             this.setState({"curVideo": this.state.curVideo});
+            setTimeout(()=>{
+                document.getElementById("tutorial-video").pause()
+            })
             // console.log("隐藏",this.state.curVideo,e)
         }
     }

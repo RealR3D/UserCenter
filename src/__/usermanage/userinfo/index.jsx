@@ -16,6 +16,7 @@ class UserInfoPage extends React.Component {
             errors: {},
             Mobile: "",
             Password: "",
+            DisplayName: "",
             loading: false,
             UserName: props.location.query.name,
             Superior: props.config.user.userName,
@@ -26,7 +27,10 @@ class UserInfoPage extends React.Component {
     updateInfo () {
         let errors = {},
             _this = this,
-            {Email, Mobile, UserName, Superior, Password} = _this.state;
+            {Email, Mobile, DisplayName, UserName, Superior, Password} = _this.state;
+        if (!DisplayName) {
+            errors['DisplayName'] = true;
+        };
         if (!utils.isEmail(Email)) {
             errors['Email'] = true;
         };
@@ -41,7 +45,9 @@ class UserInfoPage extends React.Component {
         };
         _this.setState({errors});
         if (utils.keys(errors).length > 0) {
-            if (errors['Email']) {
+            if (errors['DisplayName']) {
+                utils.Swal.error(new Error("请输入真实姓名"));
+            } else if (errors['Email']) {
                 utils.Swal.error(new Error("邮箱格式不正确"));
             } else if (errors['Mobile']) {
                 utils.Swal.error(new Error("手机号码格式不正确"));
@@ -54,9 +60,9 @@ class UserInfoPage extends React.Component {
         };
         _this.loading(true);
         $.ajax({
-            url: "../ajax/UserCheck.ashx?cmd=Change",
+            url: "http://192.168.1.148:66/ajax/UserCheck.ashx?cmd=Change",
             type: "POST",
-            data: {Email, Mobile, UserName, Password, Superior},
+            data: {Email, Mobile, DisplayName, UserName, Password, Superior},
             success (data) {
                 JSON.parse(data).State && hashHistory.push("/usermanage/userlist");
             }
@@ -72,18 +78,18 @@ class UserInfoPage extends React.Component {
     componentWillMount () {
         const _this = this, {UserName, Superior} = _this.state;
         $.ajax({
-            url: "../ajax/UserCheck.ashx?cmd=GetUser",
+            url: "http://192.168.1.148:66/ajax/UserCheck.ashx?cmd=GetUser",
             type: "POST",
             data: {UserName, Superior},
             success (data) {
                 data = JSON.parse(data);
-                const {Email, Mobile, Password} = data;
-                _this.setState({Email, Mobile, Password});
+                const {Email, Mobile, Password, DisplayName} = data;
+                _this.setState({Email, Mobile, Password, DisplayName});
             }
         });
     }
     render() {
-        const {Email, Mobile, Password} = this.state;
+        const {Email, Mobile, Password, DisplayName} = this.state;
         return (
             <div id="content-page">
                 <div className="tpl-portlet-components">
@@ -95,23 +101,30 @@ class UserInfoPage extends React.Component {
                             <div className="am-u-sm-12 am-u-md-9">
                                 <form className="am-form am-form-horizontal">
                                     <div className="am-form-group" style={{marginBottom: "14px"}}>
-                                        <label htmlFor="user-name" className="am-u-sm-3 am-form-label">手机号码 / Mobile</label>
+                                        <label htmlFor="user-name" className="am-u-sm-3 am-form-label">真实姓名</label>
                                         <div className="am-u-sm-9">
-                                            <input type="text" id="old-password" name="Mobile" value={Mobile} placeholder="请输入手机号 / Mobile" onChange={this.infoChange} /> 
+                                            <input type="text" id="DisplayName" name="DisplayName" value={DisplayName} placeholder="请输入真实姓名" onChange={this.infoChange} /> 
                                             <small>&nbsp;</small>
                                         </div>
                                     </div>
                                     <div className="am-form-group" style={{marginBottom: "14px"}}>
-                                        <label htmlFor="user-email" className="am-u-sm-3 am-form-label">邮箱 / Email</label>
+                                        <label htmlFor="user-name" className="am-u-sm-3 am-form-label">手机号码 </label>
                                         <div className="am-u-sm-9">
-                                            <input type="text" id="new-password" name="Email" placeholder="请输入邮箱 / Email" value={Email} onChange={this.infoChange} /> 
+                                            <input type="text" id="old-password" name="Mobile" value={Mobile} placeholder="请输入手机号" onChange={this.infoChange} /> 
                                             <small>&nbsp;</small>
                                         </div>
                                     </div>
                                     <div className="am-form-group" style={{marginBottom: "14px"}}>
-                                        <label htmlFor="user-phone" className="am-u-sm-3 am-form-label">密码 / Password</label>
+                                        <label htmlFor="user-email" className="am-u-sm-3 am-form-label">邮箱</label>
                                         <div className="am-u-sm-9">
-                                            <input type="password" id="confirm-password" name="Password" placeholder="请输入密码 / Password" value={Password} onChange={this.infoChange} /> 
+                                            <input type="text" id="new-password" name="Email" placeholder="请输入邮箱" value={Email} onChange={this.infoChange} /> 
+                                            <small>&nbsp;</small>
+                                        </div>
+                                    </div>
+                                    <div className="am-form-group" style={{marginBottom: "14px"}}>
+                                        <label htmlFor="user-phone" className="am-u-sm-3 am-form-label">密码</label>
+                                        <div className="am-u-sm-9">
+                                            <input type="password" id="confirm-password" name="Password" placeholder="请输入密码" value={Password} onChange={this.infoChange} /> 
                                             <small>6-12个数字或字母</small>
                                         </div>
                                     </div>

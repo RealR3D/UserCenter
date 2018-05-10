@@ -76,23 +76,23 @@ class PasswordPage extends React.Component {
                             <div className="am-u-sm-12 am-u-md-9">
                                 <form className="am-form am-form-horizontal">
                                     <div className="am-form-group" style={{marginBottom: "14px"}}>
-                                        <label htmlFor="user-name" className="am-u-sm-3 am-form-label">原密码 / Old Password</label>
+                                        <label htmlFor="user-name" className="am-u-sm-3 am-form-label">原密码</label>
                                         <div className="am-u-sm-9">
-                                            <input type="password" id="old-password" name="password" value={password} placeholder="输入原密码 / Old Password" onChange={this.passwordChange} /> 
+                                            <input type="password" id="old-password" name="password" value={password} placeholder="输入原密码" onChange={this.passwordChange} /> 
                                             <small>&nbsp;</small>
                                         </div>
                                     </div>
                                     <div className="am-form-group" style={{marginBottom: "14px"}}>
-                                        <label htmlFor="user-email" className="am-u-sm-3 am-form-label">新密码 / New Password</label>
+                                        <label htmlFor="user-email" className="am-u-sm-3 am-form-label">新密码</label>
                                         <div className="am-u-sm-9">
-                                            <input type="password" id="new-password" name="newPassword" placeholder="输入新密码 / New Password" value={newPassword} onChange={this.passwordChange} /> 
+                                            <input type="password" id="new-password" name="newPassword" placeholder="输入新密码" value={newPassword} onChange={this.passwordChange} /> 
                                             <small>6-12个数字或字母</small>
                                         </div>
                                     </div>
                                     <div className="am-form-group" style={{marginBottom: "14px"}}>
-                                        <label htmlFor="user-phone" className="am-u-sm-3 am-form-label">确认密码 / Confirm Password</label>
+                                        <label htmlFor="user-phone" className="am-u-sm-3 am-form-label">确认密码</label>
                                         <div className="am-u-sm-9">
-                                            <input type="password" id="confirm-password" name="confirmPassword" placeholder="再次输入新密码 / Confirm Password" value={confirmPassword} onChange={this.passwordChange} /> 
+                                            <input type="password" id="confirm-password" name="confirmPassword" placeholder="再次输入新密码" value={confirmPassword} onChange={this.passwordChange} /> 
                                         </div>
                                     </div>
                                     <div className="am-form-group" style={{marginBottom: "14px"}}>

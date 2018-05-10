@@ -74,15 +74,15 @@ class ProfilePage extends React.Component {
                             <div className="am-u-sm-12 am-u-md-9">
                                 <form className="am-form am-form-horizontal">
                                     <div className="am-form-group" style={{marginBottom: "30px"}}>
-                                        <label htmlFor="user-email" className="am-u-sm-3 am-form-label">电子邮件 / Email</label>
+                                        <label htmlFor="user-email" className="am-u-sm-3 am-form-label">电子邮件</label>
                                         <div className="am-u-sm-9">
-                                            <input type="email" id="user-email" name="email" placeholder="输入你的电子邮件 / Email" value={email} onChange={this.valueChange} />
+                                            <input type="email" id="user-email" name="email" placeholder="输入你的电子邮件" value={email} onChange={this.valueChange} />
                                         </div>
                                     </div>
                                     <div className="am-form-group" style={{marginBottom: "30px"}}>
-                                        <label htmlFor="user-phone" className="am-u-sm-3 am-form-label">手机号 / Telephone</label>
+                                        <label htmlFor="user-phone" className="am-u-sm-3 am-form-label">手机号</label>
                                         <div className="am-u-sm-9">
-                                            <input type="tel" id="user-phone" name="mobile" placeholder="输入你的手机号 / Telephone" value={mobile} onChange={this.valueChange} />
+                                            <input type="tel" id="user-phone" name="mobile" placeholder="输入你的手机号" value={mobile} onChange={this.valueChange} />
                                         </div>
                                     </div>
                                     <div className="am-form-group" style={{marginBottom: "30px"}}>

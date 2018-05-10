@@ -17,7 +17,7 @@ class Item extends React.Component {
         const _this = this,
             confirm = window.confirm("确定删除此项目？");
         confirm && $.ajax({
-            url: "../ajax/ProjectAjax.ashx?cmd=Del",
+            url: "http://192.168.1.148:66/ajax/ProjectAjax.ashx?cmd=Del",
             type: "post",
             data: {Pro_ID: _this.props.data.Id},
             success (data) {
@@ -29,7 +29,7 @@ class Item extends React.Component {
         const _this = this, {Id, State, Mx_Url, Fbx_Url, A3x_Url, Message, UserName, isSendEmail} = _this.props.data, index = _this.props.index;
         if (State === 2) {
             $.ajax({
-                url: "../ajax/ProjectAjax.ashx?cmd=ModState",
+                url: "http://192.168.1.148:66/ajax/ProjectAjax.ashx?cmd=ModState",
                 type: "POST",           
                 data: {ProID: Id},
                 success (data) {
@@ -48,7 +48,7 @@ class Item extends React.Component {
     render () {
         let {State, Title, UserName, Id, Create_Time} = this.props.data, {userlevel} = this.props,
             editBtn = "", state = ["未上传", "", "空三运算", "正在建模", "建模完成"][State];
-        Create_Time = new Date(parseInt(Create_Time.match(/\d+/))).toLocaleString()
+        Create_Time = new Date(parseInt(Create_Time.match(/\d+/))).toLocaleString();
         state = State === -1 ? "建模失败" : state;
         if (userlevel === "1") {
             if (State === 0 || State === 1) {
@@ -157,7 +157,7 @@ class UpdateProject extends React.Component {
         Mx_Url = Mx_Url ? Mx_Url : "";
         Fbx_Url = Fbx_Url ? Fbx_Url : "";
         $.ajax({
-            url: "../ajax/ProjectAjax.ashx?cmd=Upload",
+            url: "http://192.168.1.148:66/ajax/ProjectAjax.ashx?cmd=Upload",
             type: "POST",
             data: {
                 State, Message, UserName: userName, isSendEmail, a3x_url: A3x_Url, ProID: Id,
@@ -187,8 +187,8 @@ class UpdateProject extends React.Component {
         return (
             <div className="update-project">
                 <div className="update-project-item">
-                    <label className="update-project-label">FBX文件下载链接</label>
-                    <input className="update-project-input" type="text" name="Fbx_Url" value={Fbx_Url} onChange={this.changeHandler} placeholder="请输入fbx模型文件名" />
+                    <label className="update-project-label">DAE文件下载链接</label>
+                    <input className="update-project-input" type="text" name="Fbx_Url" value={Fbx_Url} onChange={this.changeHandler} placeholder="请输入dae模型文件名" />
                 </div>
                 <div className="update-project-item">
                     <label className="update-project-label">3MX文件下载链接</label>
@@ -256,7 +256,7 @@ class ProjectPage extends React.Component {
         return () => {
             const _this = this, reg = /\d+/g, {userName, userlevel} = _this.state, children = [], pageList = [];
             $.ajax({
-                url: "../ajax/ProjectAjax.ashx?cmd=GetAll",
+                url: "http://192.168.1.148:66/ajax/ProjectAjax.ashx?cmd=GetAll",
                 type: "POST",
                 data: {UserName: userName, index: pageNumber, select},
                 success (data) {

@@ -27,8 +27,8 @@ function send_request(ID, name, userName)
     {
         var data = "UserName=" + userName + "&ProId=" + ID + "&ProName=" + name;
         xmlhttp.open("POST",
-            //"http://192.168.1.148:66/ajax/FileConsole.ashx?cmd=upload"
-            '../../ajax/FileConsole.ashx?cmd=upload'
+            "http://192.168.1.148:66/ajax/FileConsole.ashx?cmd=upload"
+            //'../../ajax/FileConsole.ashx?cmd=upload'
             , false );
         xmlhttp.setRequestHeader("content-type", "application/x-www-form-urlencoded");
         xmlhttp.send( data );

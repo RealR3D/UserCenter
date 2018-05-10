@@ -17,6 +17,7 @@ class CreateUserPage extends React.Component {
             email: "",
             mobile: "",
             userName: "",
+            DisplayName: "",
             password: "",
             passwordError: ""
         };
@@ -27,9 +28,12 @@ class CreateUserPage extends React.Component {
         ev.preventDefault();
         const _this = this;
         let errors = {}, passwordError = "",
-            {email, mobile, userName, password, UserName} = _this.state;
+            {email, mobile, userName, DisplayName, password, UserName} = _this.state;
         if (!userName) {
             errors['userName'] = true;
+        };
+        if (!DisplayName) {
+            errors['DisplayName'] = true;
         };
         if (!email || !utils.isEmail(email)) {
             errors['email'] = true;
@@ -47,7 +51,9 @@ class CreateUserPage extends React.Component {
         _this.setState({errors, passwordError});
         if (utils.keys(errors).length > 0) {
             if (errors['userName']) {
-                utils.Swal.error(new Error("请输入姓名"));
+                utils.Swal.error(new Error("请输入用户名"));
+            } else if (errors['DisplayName']) {
+                utils.Swal.error(new Error("请输入真实姓名"));
             } else if (errors['password']) {
                 utils.Swal.error(new Error(passwordError));
             } else if (errors['email']) {
@@ -59,9 +65,10 @@ class CreateUserPage extends React.Component {
         };
         _this.loading(true);
         $.ajax({
-            url: "../ajax/UserCheck.ashx?cmd=Reg",
+            url: "http://192.168.1.148:66/ajax/UserCheck.ashx?cmd=Reg",
             type: "POST",
             data: {
+                DisplayName,
                 Email: email,
                 Mobile: mobile,
                 Password: password,
@@ -86,7 +93,7 @@ class CreateUserPage extends React.Component {
         this.setState({loading});
     }
     render(){
-        const {email, mobile, password, userName} = this.state;
+        const {email, mobile, password, userName, DisplayName} = this.state;
         return (
             <div id="content-page">
                 <div className="tpl-portlet-components">
@@ -96,27 +103,33 @@ class CreateUserPage extends React.Component {
                             <div className="am-u-sm-12 am-u-md-9">
                                 <form className="am-form am-form-horizontal">
                                     <div className="am-form-group" style={{marginBottom: "30px"}}>
-                                        <label htmlFor="user-name" className="am-u-sm-3 am-form-label">姓名 / Name</label>
+                                        <label htmlFor="user-name" className="am-u-sm-3 am-form-label">用户名</label>
                                         <div className="am-u-sm-9">
-                                            <input type="text" id="user-name" name="userName" placeholder="姓名 / Name" value={userName} onChange={this.stateChange} />
+                                            <input type="text" id="user-name" name="userName" placeholder="用户名" value={userName} onChange={this.stateChange} />
                                         </div>
                                     </div>
                                     <div className="am-form-group" style={{marginBottom: "30px"}}>
-                                        <label htmlFor="user-password" className="am-u-sm-3 am-form-label">密码 / Password</label>
+                                        <label htmlFor="user-name" className="am-u-sm-3 am-form-label">真实姓名</label>
                                         <div className="am-u-sm-9">
-                                            <input type="password" id="user-password" name="password" placeholder="输入登录密码 / Password" value={password} onChange={this.stateChange} />
+                                            <input type="text" id="display-name" name="DisplayName" placeholder="真实姓名" value={DisplayName} onChange={this.stateChange} />
                                         </div>
                                     </div>
                                     <div className="am-form-group" style={{marginBottom: "30px"}}>
-                                        <label htmlFor="user-email" className="am-u-sm-3 am-form-label">电子邮件 / Email</label>
+                                        <label htmlFor="user-password" className="am-u-sm-3 am-form-label">密码</label>
                                         <div className="am-u-sm-9">
-                                            <input type="email" id="user-email" name="email" placeholder="输入你的电子邮件 / Email" value={email} onChange={this.stateChange} />
+                                            <input type="password" id="user-password" name="password" placeholder="输入登录密码" value={password} onChange={this.stateChange} />
                                         </div>
                                     </div>
                                     <div className="am-form-group" style={{marginBottom: "30px"}}>
-                                        <label htmlFor="user-phone" className="am-u-sm-3 am-form-label">手机号 / Telephone</label>
+                                        <label htmlFor="user-email" className="am-u-sm-3 am-form-label">电子邮件</label>
                                         <div className="am-u-sm-9">
-                                            <input type="tel" id="user-phone" name="mobile" placeholder="输入你的手机号 / Telephone" value={mobile} onChange={this.stateChange} />
+                                            <input type="email" id="user-email" name="email" placeholder="输入你的电子邮件" value={email} onChange={this.stateChange} />
+                                        </div>
+                                    </div>
+                                    <div className="am-form-group" style={{marginBottom: "30px"}}>
+                                        <label htmlFor="user-phone" className="am-u-sm-3 am-form-label">手机号</label>
+                                        <div className="am-u-sm-9">
+                                            <input type="tel" id="user-phone" name="mobile" placeholder="输入你的手机号" value={mobile} onChange={this.stateChange} />
                                         </div>
                                     </div>
                                     <div className="am-form-group" style={{marginBottom: "30px"}}>

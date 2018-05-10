@@ -91,7 +91,7 @@ class ProjectPage extends React.Component {
                             form.append("UserName", userName);
                             form.append("file", file.getNative());
                             $.ajax({
-                                url: "../ajax/FileConsole.ashx?cmd=GetImgInfo",
+                                url: "http://192.168.1.148:66/ajax/FileConsole.ashx?cmd=GetImgInfo",
                                 type: "POST",
                                 data: form,
                                 processData: false,
@@ -100,7 +100,7 @@ class ProjectPage extends React.Component {
                         };
                         if (id === files[len - 1].id && isSuccess) {
                             $.ajax({
-                                url: "../ajax/FileConsole.ashx?cmd=finish",
+                                url: "http://192.168.1.148:66/ajax/FileConsole.ashx?cmd=finish",
                                 type: "POST",
                                 data: {ProID: ID, UserName: userName},
                                 success (data) {

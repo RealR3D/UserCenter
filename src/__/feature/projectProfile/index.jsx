@@ -85,7 +85,7 @@ class UploadFile extends React.Component {
                         form.append("UserName", userName);
                         form.append("file", file.getNative());
                         $.ajax({
-                            url: "../ajax/FileConsole.ashx?cmd=GetImgInfo",
+                            url: "http://192.168.1.148:66/ajax/FileConsole.ashx?cmd=GetImgInfo",
                             type: "POST",
                             data: form,
                             processData: false,
@@ -94,7 +94,7 @@ class UploadFile extends React.Component {
                     };
                     if (id === files[len].id && isSuccess) {
                         $.ajax({
-                            url: "../ajax/FileConsole.ashx?cmd=finish",
+                            url: "http://192.168.1.148:66/ajax/FileConsole.ashx?cmd=finish",
                             type: "POST",
                             data: {ProID: ID, UserName: userName},
                             success (data) {
@@ -181,7 +181,7 @@ class ProjectPage extends React.Component {
     componentWillMount () {
         const _this = this, Pro_ID = _this.state.ID;
         $.ajax({
-            url: "../ajax/ProjectAjax.ashx?cmd=GetCurrent",
+            url: "http://192.168.1.148:66/ajax/ProjectAjax.ashx?cmd=GetCurrent",
             type: "post",
             async: false,
             data: {Pro_ID},
@@ -232,7 +232,7 @@ class ProjectPage extends React.Component {
                             <div className="am-panel-bd">{Message}</div>
                         </section>
                         <div style={{"textAlign": "center"}}>
-                            <a href={fbx_url} ref={(ele) => this.fbxUrl = ele} download={title} className="am-btn am-disabled am-btn-primary">FBX模型下载<i className="am-icon-cloud-download"></i></a>&nbsp;
+                            <a href={fbx_url} ref={(ele) => this.fbxUrl = ele} download={title} className="am-btn am-disabled am-btn-primary">DAE模型下载<i className="am-icon-cloud-download"></i></a>&nbsp;
                             <a href={mx_url} ref={(ele) => this.mxUrl = ele} download={title} className="am-btn am-disabled am-btn-primary">3MX模型下载<i className="am-icon-cloud-download"></i></a>&nbsp;
                             <a href={preview_url} ref={(ele) => this.previewUrl = ele} target="_blank" className="am-btn am-disabled am-btn-primary">在线预览<i className="iconfont icon-yanjing"></i></a>
                         </div>

@@ -6,16 +6,16 @@ import cx from 'classnames';
 import { Slider } from '../../components';
 
 class Item extends React.Component {
-    constructor (props) {
-        super(props);
-    }
     render () {
-        const {Email, Mobile, UserName} = this.props;
+        const {Email, Mobile, UserName, DisplayName, CountOfLogin, LastActivityDate} = this.props.data;
         return (
             <tr>
                 <td>{UserName}</td>
+                <td className="am-hide-sm-only">{DisplayName}</td>
                 <td className="am-hide-sm-only">{Mobile}</td>
                 <td className="am-hide-sm-only">{Email}</td>
+                <td className="am-hide-sm-only">{CountOfLogin}</td>
+                <td className="am-hide-sm-only">{new Date(parseInt(LastActivityDate.match(/\d+/))).toLocaleString()}</td>
                 <td className="am-hide-sm-only">
                     <button onClick={this.updateUser} className="am-btn am-btn-default am-btn-xs am-text-secondary">
                         <Link to={"/usermanage/userinfo?name=" + UserName} >
@@ -32,61 +32,57 @@ class UserListPage extends React.Component {
         super(props);
         this.state = {arr: [], keys: "", index: 1, Counts: 0, Superior: props.config.user.userName, pageList: [], pageListNumber: 0};
         this.searchUser = this.searchUser.bind(this);
-        this.updateUserList = this.updateUserList.bind(this);
         this.keydownHandler = this.keydownHandler.bind(this);
     }
     searchUser () {
         const keys = this.searchoption.value;
-        this.updateUserList(keys, 1)();
+        this.updateUserList.bind(this, keys, 1)();
     }
     updateUserList (keys, index) {
-        return () => {
-            const _this = this, {Superior} = _this.state;
-            $.ajax({
-                url: "../ajax/UserCheck.ashx?cmd=GetAllUser",
-                type: "POST",
-                data: {keys, index, UserName: Superior},
-                success (data) {
-                    data = JSON.parse(data);
-                    const arr = [], list = data.data, Counts = data.Counts, len = list.length, pageList = [], pageListNumber = Math.ceil(Counts / 10),
-                        pageCount = pageListNumber <= 5 ? pageListNumber : 5, minusIndex = Math.floor(pageCount / 2);
-                    for (let i = 0; i < len; i ++) {
-                        const {Id, Email, Mobile, UserName} = list[i];
-                        arr.push(<Item key={i} UserName={UserName} Email={Email} Mobile={Mobile} Superior={Superior} />);
-                    };
-                    let pageIndex = index;
-                    if (pageListNumber > 5) {
-                        if (pageIndex <= minusIndex) {
-                            pageIndex = 1;
-                        } else if (pageListNumber - pageIndex <= minusIndex) {
-                            pageIndex = pageListNumber - pageCount + 1;
-                        } else {
-                            pageIndex = pageIndex - minusIndex;
-                        };
-                    } else {
+        const _this = this, {Superior} = _this.state;
+        $.ajax({
+            url: "http://192.168.1.148:66/ajax/UserCheck.ashx?cmd=GetAllUser",
+            type: "POST",
+            data: {keys, index, UserName: Superior},
+            success (data) {
+                data = JSON.parse(data);
+                const arr = [], list = data.data, Counts = data.Counts, len = list.length, pageList = [], pageListNumber = Math.ceil(Counts / 10),
+                    pageCount = pageListNumber <= 5 ? pageListNumber : 5, minusIndex = Math.floor(pageCount / 2);
+                for (let i = 0; i < len; i ++) {
+                    arr.push(<Item key={i} data={list[i]} Superior={Superior} />);
+                };
+                let pageIndex = index;
+                if (pageListNumber > 5) {
+                    if (pageIndex <= minusIndex) {
                         pageIndex = 1;
+                    } else if (pageListNumber - pageIndex <= minusIndex) {
+                        pageIndex = pageListNumber - pageCount + 1;
+                    } else {
+                        pageIndex = pageIndex - minusIndex;
                     };
-                    for (let i = 0; i < pageCount; i ++) {
-                        const nowPageNumber = i + pageIndex;
-                        pageList.push(<li key={nowPageNumber} className={nowPageNumber === index ? "am-active" : ""}>
-                            <a onClick={_this.updateUserList(keys, nowPageNumber)}>{nowPageNumber}</a>
-                        </li>);
-                    };
-                    _this.setState({arr, keys, index, Counts, pageList, pageListNumber});
-                }
-            });
-        };
+                } else {
+                    pageIndex = 1;
+                };
+                for (let i = 0; i < pageCount; i ++) {
+                    const nowPageNumber = i + pageIndex;
+                    pageList.push(<li key={nowPageNumber} className={nowPageNumber === index ? "am-active" : ""}>
+                        <a onClick={_this.updateUserList.bind(_this, keys, nowPageNumber)}>{nowPageNumber}</a>
+                    </li>);
+                };
+                _this.setState({arr, keys, index, Counts, pageList, pageListNumber});
+            }
+        });
     }
     keydownHandler (ev) {
         const keyCode = ev.keyCode;
         if (keyCode === 13) {
-            this.updateUserList(this.searchoption.value, 1)();
+            this.updateUserList.bind(this, this.searchoption.value, 1)();
         } else if (keyCode === 27) {
-            this.updateUserList("", 1)();
+            this.updateUserList.bind(this, "", 1)();
         };
     }
     componentDidMount () {
-        this.updateUserList("", 1)();
+        this.updateUserList.bind(this, "", 1)();
         document.addEventListener("keydown", this.keydownHandler, false);
     }
     componentWillUnmount () {
@@ -116,8 +112,11 @@ class UserListPage extends React.Component {
                                         <thead>
                                             <tr>
                                                 <th className="table-title">用户名</th>
+                                                <th className="table-title">真实姓名</th>
                                                 <th className="table-author am-hide-sm-only">手机号</th>
                                                 <th className="table-author am-hide-sm-only">邮箱地址</th>
+                                                <th className="table-author am-hide-sm-only">登录次数</th>
+                                                <th className="table-author am-hide-sm-only">最后登录时间</th>
                                                 <th className="table-author am-hide-sm-only">操作</th>
                                             </tr>
                                         </thead>
@@ -129,9 +128,9 @@ class UserListPage extends React.Component {
                         <nav id="nav">
                             <span>共{Counts}名用户</span>
                             <ul id="page-list" className="am-pagination tpl-pagination">
-                                <li><a onClick={this.updateUserList(keys, Math.max(index - 1, 1))}>«</a></li>
+                                <li><a onClick={this.updateUserList.bind(this, keys, Math.max(index - 1, 1))}>«</a></li>
                                 {pageList}
-                                <li><a onClick={this.updateUserList(keys, Math.min(index + 1, pageListNumber))}>»</a></li>
+                                <li><a onClick={this.updateUserList.bind(this, keys, Math.min(index + 1, pageListNumber))}>»</a></li>
                             </ul>
                         </nav>
                     </div>

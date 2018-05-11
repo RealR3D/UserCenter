@@ -8,18 +8,17 @@ import * as utils from '../../../lib/utils';
 import client from '../../../lib/client';
 import { Slider } from '../../components';
 
-class UserInfoPage extends React.Component {
+class DroneInfoPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            Email: "",
             errors: {},
-            Mobile: "",
-            Password: "",
-            DisplayName: "",
+            Title: "",
+            Machine_Code: "",
+            Register_Date: "", 
             loading: false,
-            UserName: props.location.query.name,
-            Superior: props.config.user.userName,
+            ID: props.location.query.id,
+            UserName: props.config.user.userName,
         };
         this.updateInfo = this.updateInfo.bind(this);
         this.infoChange = this.infoChange.bind(this);
@@ -27,44 +26,35 @@ class UserInfoPage extends React.Component {
     updateInfo () {
         let errors = {},
             _this = this,
-            {Email, Mobile, DisplayName, UserName, Superior, Password} = _this.state;
-        if (!DisplayName) {
-            errors['DisplayName'] = true;
+            {ID, Title, Machine_Code, Register_Date, UserName} = _this.state;
+        if (!Title) {
+            errors['Title'] = true;
         };
-        if (!utils.isEmail(Email)) {
-            errors['Email'] = true;
+        if (!Machine_Code) {
+            errors['Machine_Code'] = true;
         };
-        if (!utils.isMobile(Mobile)) {
-            errors['Mobile'] = true;
-        };
-        if (Password.length < 6 || Password.length > 12) {
-            errors['Length'] = true;
-        };
-        if (!/^(?!\d+$)(?![a-zA-Z]+$)[0-9a-zA-Z]{6,12}$/.test(Password)) {
-            errors['Password'] = true;
+        if (!Register_Date) {
+            errors['Register_Date'] = true;
         };
         _this.setState({errors});
         if (utils.keys(errors).length > 0) {
-            if (errors['DisplayName']) {
-                utils.Swal.error(new Error("请输入真实姓名"));
-            } else if (errors['Email']) {
-                utils.Swal.error(new Error("邮箱格式不正确"));
-            } else if (errors['Mobile']) {
-                utils.Swal.error(new Error("手机号码格式不正确"));
-            } else if(errors['Length']) {
-                utils.Swal.error(new Error("登录密码长度必须大于6位"));
-            } else if (errors['Password']) {
-                utils.Swal.error(new Error("密码不符合规则，请包含字母和数字组合"));
+            if (errors['Title']) {
+                utils.Swal.error(new Error("请输入无人机名称"));
+            } else if (errors['Machine_Code']) {
+                utils.Swal.error(new Error("请输入无人机序列号"));
+            } else if (errors['Register_Date']) {
+                utils.Swal.error(new Error("请输入无人机出厂日期"));
             };
             return;
         };
         _this.loading(true);
         $.ajax({
-            url: "http://192.168.1.148:66/ajax/UserCheck.ashx?cmd=Change",
+            url: "http://192.168.1.148:66/ajax/Serial_NumberAjax.ashx?cmd=Mod",
             type: "POST",
-            data: {Email, Mobile, DisplayName, UserName, Password, Superior},
+            data: {ID, Title, Machine_Code, Register_Date, UserName},
             success (data) {
-                JSON.parse(data).State && hashHistory.push("/usermanage/userlist");
+                console.log(data);
+                JSON.parse(data).code === "0" && hashHistory.push("/dronemanage/dronelist");
             }
         });
     }
@@ -72,24 +62,25 @@ class UserInfoPage extends React.Component {
         this.setState({[ev.target.name]: ev.target.value});
     }
     loading(loading) {
-        this.state.loading = loading;
-        this.setState(this.state);
+        this.setState({loading});
     }
     componentWillMount () {
-        const _this = this, {UserName, Superior} = _this.state;
+        const _this = this, {ID, UserName} = _this.state;
         $.ajax({
-            url: "http://192.168.1.148:66/ajax/UserCheck.ashx?cmd=GetUser",
+            url: "http://192.168.1.148:66/ajax/Serial_NumberAjax.ashx?cmd=Current",
             type: "POST",
-            data: {UserName, Superior},
+            data: {ID, UserName},
             success (data) {
                 data = JSON.parse(data);
-                const {Email, Mobile, Password, DisplayName} = data;
-                _this.setState({Email, Mobile, Password, DisplayName});
+                let {msg, code} = data, Title = "", Machine_Code = "", Register_Date = "";
+                code === "0"
+                    ? ({Title, Machine_Code, Register_Date} = data.data, _this.setState({Title, Machine_Code, Register_Date}))
+                    : utils.Swal.error(new Error(msg));
             }
         });
     }
     render() {
-        const {Email, Mobile, Password, DisplayName} = this.state;
+        const {Title, Machine_Code, Register_Date} = this.state;
         return (
             <div id="content-page">
                 <div className="tpl-portlet-components">
@@ -101,31 +92,24 @@ class UserInfoPage extends React.Component {
                             <div className="am-u-sm-12 am-u-md-9">
                                 <form className="am-form am-form-horizontal">
                                     <div className="am-form-group" style={{marginBottom: "14px"}}>
-                                        <label htmlFor="#" className="am-u-sm-3 am-form-label">真实姓名</label>
+                                        <label htmlFor="#" className="am-u-sm-3 am-form-label">名称</label>
                                         <div className="am-u-sm-9">
-                                            <input type="text" name="DisplayName" value={DisplayName} placeholder="请输入真实姓名" onChange={this.infoChange} /> 
+                                            <input type="text" name="Title" value={Title} placeholder="请输入无人机名称" onChange={this.infoChange} /> 
                                             <small>&nbsp;</small>
                                         </div>
                                     </div>
                                     <div className="am-form-group" style={{marginBottom: "14px"}}>
-                                        <label htmlFor="#" className="am-u-sm-3 am-form-label">手机号码</label>
+                                        <label htmlFor="#" className="am-u-sm-3 am-form-label">序列号</label>
                                         <div className="am-u-sm-9">
-                                            <input type="text" name="Mobile" value={Mobile} placeholder="请输入手机号" onChange={this.infoChange} /> 
+                                            <input type="text" name="Machine_Code" value={Machine_Code} placeholder="请输入无人机序列号" onChange={this.infoChange} /> 
                                             <small>&nbsp;</small>
                                         </div>
                                     </div>
                                     <div className="am-form-group" style={{marginBottom: "14px"}}>
-                                        <label htmlFor="#" className="am-u-sm-3 am-form-label">邮箱</label>
+                                        <label htmlFor="#" className="am-u-sm-3 am-form-label">出厂日期</label>
                                         <div className="am-u-sm-9">
-                                            <input type="text" name="Email" placeholder="请输入邮箱" value={Email} onChange={this.infoChange} /> 
+                                            <input type="date" name="Register_Date" value={Register_Date} placeholder="请输入无人机出厂日期" onChange={this.infoChange} /> 
                                             <small>&nbsp;</small>
-                                        </div>
-                                    </div>
-                                    <div className="am-form-group" style={{marginBottom: "14px"}}>
-                                        <label htmlFor="#" className="am-u-sm-3 am-form-label">密码</label>
-                                        <div className="am-u-sm-9">
-                                            <input type="password" name="Password" placeholder="请输入密码" value={Password} onChange={this.infoChange} /> 
-                                            <small>6-12个数字或字母</small>
                                         </div>
                                     </div>
                                     <div className="am-form-group" style={{marginBottom: "14px"}}>
@@ -152,4 +136,4 @@ function mapDispatchToProps(dispatch) {
         update: bindActionCreators(update, dispatch),
     };
 }
-export default connect(mapStateToProps, mapDispatchToProps)(UserInfoPage);
+export default connect(mapStateToProps, mapDispatchToProps)(DroneInfoPage);

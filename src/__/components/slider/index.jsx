@@ -47,13 +47,14 @@ export default class Menu extends React.Component {
     }
     componentDidMount () {
         this.props.userlevel !== "2" && this.usermanage.parentNode.removeChild(this.usermanage);
+        this.props.userlevel !== "1" && this.dronemanage.parentNode.removeChild(this.dronemanage);
     }
     render() {
         const {item0, item1, item2, item3, item4, item5} = this.state,
             state1 = item1 ? "block" : "none",
             state2 = item2 ? "block" : "none",
-            state4 = item4 ? "block" : "none",
-            state5 = item5 ? "block" : "none";
+            state3 = item3 ? "block" : "none",
+            state4 = item4 ? "block" : "none";
         return (
         <div className="tpl-left-nav tpl-left-nav-hover">
             <div className="tpl-left-nav-title">用户中心</div>
@@ -89,8 +90,8 @@ export default class Menu extends React.Component {
                         </ul>
                     </li>
                     <li id="usermanage" ref={ele => this.usermanage = ele} className="tpl-left-nav-item">
-                        <Item name="item4" value={item4} title="用户管理" iconName="am-icon-cogs" onStateChange={this.handleChange} />
-                        <ul className="tpl-left-nav-sub-menu" style={{"display": state4}}>
+                        <Item name="item3" value={item3} title="用户管理" iconName="am-icon-cogs" onStateChange={this.handleChange} />
+                        <ul className="tpl-left-nav-sub-menu" style={{"display": state3}}>
                             <li>
                                 <Link to="/usermanage/userlist" className="nav-link">
                                     <i className="am-icon-angle-right"></i><span>用户列表</span>
@@ -101,13 +102,25 @@ export default class Menu extends React.Component {
                             </li>
                         </ul>
                     </li>
+                    <li ref={ele => this.drone = ele} className="tpl-left-nav-item">
+                        <Item name="item4" value={item4} title="无人机管理" iconName="am-icon-paper-plane" onStateChange={this.handleChange} />
+                        <ul className="tpl-left-nav-sub-menu" style={{"display": state4}}>
+                            <li>
+                                <Link to="dronemanage/createdrone" className="nav-link">
+                                    <i className="am-icon-angle-right"></i><span>添加无人机</span>
+                                </Link>
+                                <Link to="/dronemanage/dronelist" className="nav-link">
+                                    <i className="am-icon-angle-right"></i><span>无人机列表</span>
+                                </Link>
+                            </li>
+                        </ul>
+                    </li>
                     <li className="tpl-left-nav-item">
-                        <Item to="/tutorial/"  value={item5} title="在线教程" iconName="iconfont am-icon-book" onStateChange={this.handleChange} />
+                        <Item to="/tutorial/" value={item5} title="在线教程" iconName="iconfont am-icon-book" onStateChange={this.handleChange} />
                     </li>
                     {/* <li className="tpl-left-nav-item">
                         <Item to="/service/" value={item3} title="技术支持" iconName="iconfont icon-shouhou" onStateChange={this.handleChange} />
                     </li> */}
-
                 </ul>
             </div>
         </div>);

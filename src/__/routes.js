@@ -29,6 +29,7 @@ export default {
         require('./service/routes').default,
         require('./feature/routes').default,
         require('./usermanage/routes').default,
+        require('./dronemanage/routes').default,
         require('./tutorial/routes').default
       ]);
     });

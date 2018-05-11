@@ -103,33 +103,33 @@ class CreateUserPage extends React.Component {
                             <div className="am-u-sm-12 am-u-md-9">
                                 <form className="am-form am-form-horizontal">
                                     <div className="am-form-group" style={{marginBottom: "30px"}}>
-                                        <label htmlFor="user-name" className="am-u-sm-3 am-form-label">用户名</label>
+                                        <label htmlFor="#" className="am-u-sm-3 am-form-label">用户名</label>
                                         <div className="am-u-sm-9">
-                                            <input type="text" id="user-name" name="userName" placeholder="用户名" value={userName} onChange={this.stateChange} />
+                                            <input type="text" name="userName" placeholder="用户名" value={userName} onChange={this.stateChange} />
                                         </div>
                                     </div>
                                     <div className="am-form-group" style={{marginBottom: "30px"}}>
-                                        <label htmlFor="user-name" className="am-u-sm-3 am-form-label">真实姓名</label>
+                                        <label htmlFor="#" className="am-u-sm-3 am-form-label">真实姓名</label>
                                         <div className="am-u-sm-9">
-                                            <input type="text" id="display-name" name="DisplayName" placeholder="真实姓名" value={DisplayName} onChange={this.stateChange} />
+                                            <input type="text" name="DisplayName" placeholder="真实姓名" value={DisplayName} onChange={this.stateChange} />
                                         </div>
                                     </div>
                                     <div className="am-form-group" style={{marginBottom: "30px"}}>
-                                        <label htmlFor="user-password" className="am-u-sm-3 am-form-label">密码</label>
+                                        <label htmlFor="#" className="am-u-sm-3 am-form-label">密码</label>
                                         <div className="am-u-sm-9">
-                                            <input type="password" id="user-password" name="password" placeholder="输入登录密码" value={password} onChange={this.stateChange} />
+                                            <input type="password" name="password" placeholder="输入登录密码" value={password} onChange={this.stateChange} />
                                         </div>
                                     </div>
                                     <div className="am-form-group" style={{marginBottom: "30px"}}>
-                                        <label htmlFor="user-email" className="am-u-sm-3 am-form-label">电子邮件</label>
+                                        <label htmlFor="#" className="am-u-sm-3 am-form-label">电子邮件</label>
                                         <div className="am-u-sm-9">
-                                            <input type="email" id="user-email" name="email" placeholder="输入你的电子邮件" value={email} onChange={this.stateChange} />
+                                            <input type="email" name="email" placeholder="输入你的电子邮件" value={email} onChange={this.stateChange} />
                                         </div>
                                     </div>
                                     <div className="am-form-group" style={{marginBottom: "30px"}}>
-                                        <label htmlFor="user-phone" className="am-u-sm-3 am-form-label">手机号</label>
+                                        <label htmlFor="#" className="am-u-sm-3 am-form-label">手机号</label>
                                         <div className="am-u-sm-9">
-                                            <input type="tel" id="user-phone" name="mobile" placeholder="输入你的手机号" value={mobile} onChange={this.stateChange} />
+                                            <input type="tel" name="mobile" placeholder="输入你的手机号" value={mobile} onChange={this.stateChange} />
                                         </div>
                                     </div>
                                     <div className="am-form-group" style={{marginBottom: "30px"}}>

@@ -12,7 +12,7 @@ class IndexPage extends React.Component {
           <div id="doc3">
             <div id="bd">
               <div className="grid-2 clearfix" id="grid">
-                <Slider active="3" userName={userName} userlevel={userlevel} />
+                <Slider active="4" userName={userName} userlevel={userlevel} />
                 {this.props.children}
               </div>
             </div>

@@ -39,7 +39,7 @@ class UploadPage extends React.Component {
             success (data) {
                 data = JSON.parse(data);
                 data.code === "0"
-                    ? hashHistory.push(`/feature/uploadFile?name=${name}&ID=${data.data}`)
+                    ? hashHistory.push(`/projectmanage/uploadfile?name=${name}&ID=${data.data}`)
                     : alert("项目创建失败。");
             }
         });

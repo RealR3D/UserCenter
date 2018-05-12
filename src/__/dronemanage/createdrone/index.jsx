@@ -47,11 +47,9 @@ class CreateDronePage extends React.Component {
             data: {Title, UserName, Machine_Code, Register_Date},
             success (data) {
                 data = JSON.parse(data);
-                if (data.code === "0") {
-                    setTimeout(() => hashHistory.push("/dronemanage/dronelist"), 100);
-                } else if (data.code === "1") {
-                    utils.Swal.error(new Error(data.msg));
-                };
+                data.code === "0"
+                    ? setTimeout(() => hashHistory.push("/dronemanage/dronelist"), 100)
+                    : utils.Swal.error(new Error(data.msg));
             }
         });
     }

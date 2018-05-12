@@ -54,7 +54,10 @@ class DroneInfoPage extends React.Component {
             data: {ID, Title, Machine_Code, Register_Date, UserName},
             success (data) {
                 console.log(data);
-                JSON.parse(data).code === "0" && hashHistory.push("/dronemanage/dronelist");
+                data = JSON.parse(data);
+                data.code === "0" 
+                    ? hashHistory.push("/dronemanage/dronelist")
+                    : utils.Swal.error(new Error(data.msg));
             }
         });
     }

@@ -1,12 +1,12 @@
 export default {
 
-  path: 'projectProfile',
+  path: 'projectlist',
   
   getIndexRoute(location, cb) {
     cb(null, {
       getComponent(nextState, cb) {
         require.ensure([], (require) => {
-          cb(null, require('../../../__/feature/projectProfile/index').default);
+          cb(null, require('../../../__/projectmanage/projectlist/index').default);
         });
       }
     });

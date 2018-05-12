@@ -22,8 +22,10 @@ class Item extends React.Component {
             type: "post",
             data: {ID: Id, UserName},
             success (data) {
-                console.log(data);
-                JSON.parse(data).code === "0" && _this.props.delDrone(_this.props.index);
+                data = JSON.parse(data);
+                data.code === "0" 
+                    ? _this.props.delDrone(_this.props.index)
+                    : utils.Swal.error(new Error(msg));
             }
         });
     }

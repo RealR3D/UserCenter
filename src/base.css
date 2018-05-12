@@ -36,6 +36,7 @@ textarea {
 #root > div > div:nth-child(2) {
     flex: 1;
     height: 100%;
+    width: 100%;
 }
 .disabled {
   opacity: 0.5 !important;
@@ -220,7 +221,7 @@ input, select, button {
 }
 #doc1, #doc2, #doc3 {
     margin: auto;
-    min-width: 760px;
+    /* min-width: 760px; */
     text-align: left;
     zoom: 1
 }
@@ -252,10 +253,17 @@ input, select, button {
     color: #999
 }
 .uc-header {
+    position: relative;
     height: 75px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
+}
+.uc-header .am-icon-list {
+    position: absolute;
+    line-height: 75px;
+    left: 210px;
+    cursor: pointer;
 }
 .uc-nav {
     background: #59ce2a;
@@ -1349,4 +1357,10 @@ pre {
 }
 .update-project-btn {
     transform: translateX(200px);
+}
+
+@media screen and (max-width: 1000px) {
+    #grid {
+        display: inline;
+    }
 }

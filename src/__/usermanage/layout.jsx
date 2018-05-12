@@ -8,10 +8,10 @@ class IndexPage extends React.Component {
     }
     render() {
         const {userlevel, userName} = this.props.config.user;
-        return (<div>
-          <div id="doc3">
-            <div id="bd">
-              <div className="grid-2 clearfix" id="grid">
+        return (<div id="doc3">
+          <div>
+            <div>
+              <div id="grid">
                 <Slider active="3" userName={userName} userlevel={userlevel} />
                 {this.props.children}
               </div>

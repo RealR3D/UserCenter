@@ -17,9 +17,8 @@ class IndexPage extends React.Component {
             this.state.logs = res;
             this.setState(this.state);
         });
-    }    
+    }
     render() {
-        console.log("传过来",this.props.config.user)
         const user = this.props.config.user || new models.User();
         let logsEl = [];
         if (this.state.logs) {
@@ -38,12 +37,12 @@ class IndexPage extends React.Component {
           <p><span className="fr"><Link to="/writing/new" className="lnk">投稿</Link></span> 发布稿件到对应的站点及栏目</p>
         </li>);
         }
-        return (
+        return (<div>
           <div id="doc3">
-            <div>
-              <div>
-                <Slider userName={user.userName} userlevel={user.userlevel}/>
-                <div className="tpl-content-wrapper tpl-content-wrapper-hover" id="content-page">
+            <div id="bd">
+              <div className="grid-1 clearfix" id="grid">
+                <Slider userName={user.userName} userlevel={user.userlevel} />
+                <div className="tpl-content-wrapper" id="content-page">
                     <div className="row">
                         <div className="am-u-md-6 am-u-sm-12 row-mb">
                             <div className="tpl-portlet">
@@ -80,7 +79,7 @@ class IndexPage extends React.Component {
               </div>
             </div>
           </div>
-      );
+      </div>);
     }
 }
 function mapStateToProps(state) {

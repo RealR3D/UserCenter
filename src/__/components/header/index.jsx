@@ -17,7 +17,7 @@ export default class Header extends React.Component {
         this.state = {
             userName,
             full: false,
-            text: "开启全屏"
+            text: "开启全屏",
         };
         this.fullScreen = this.fullScreen.bind(this);
     }
@@ -57,6 +57,8 @@ export default class Header extends React.Component {
                 <h1 className="logo">
                     <IndexLink to="/" style={{ backgroundImage: 'url(' + this.props.config.logoUrl + ')' }}/>
                 </h1>
+                <div className="am-icon-list tpl-header-nav-hover-ico" id="tap-change" onClick={this.props.toggleLeftNav}>
+                </div>
                 <div className="nav-login">
                     <ul>
                         <li className="am-hide-sm-only">

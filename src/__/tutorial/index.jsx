@@ -53,14 +53,13 @@ class IndexPage extends React.Component {
         var videoList = () => {
             var res = [];
             for(var i = 0; i < 7; i++) {
-                res.push(<div key={i}>
+                res.push(<div>
                     <div className="am-u-sm-12 am-u-md-6 am-u-lg-4">
                         <div className="tpl-table-images-content">
                             <div className="tpl-i-title" style={{fontSize: 18}}>
-                               {this.state.videoList[i].title}
+                            {this.state.videoList[i].title}
                             </div>
-                            {/* to={`/tutorial/${i+1}`} */}
-                                <div className="nav-link tpl-table-images-content-i" onClick={this.handleClick(i)}>
+                                <div className="nav-link tpl-table-images-content-i" onClick={this.handleClick()}>
 
                                     <span className="tpl-table-images-content-i-shadow">
                                     </span>
@@ -79,7 +78,7 @@ class IndexPage extends React.Component {
             return res
         }
         return (
-        <div id="content-page">
+        <div className="tpl-content-wrapper tpl-content-wrapper-hover" id="content-page">
             <div className="tpl-portlet-components">
                 <div className="portlet-title">
                     <div className="caption font-green bold">在线教程</div>
@@ -89,35 +88,8 @@ class IndexPage extends React.Component {
                     <div className="am-g">
                         <div className="tpl-table-images">
 
-                            {/* <div className="am-u-sm-12 am-u-md-6 am-u-lg-4">
-                                <div className="tpl-table-images-content">
-                                    <div className="tpl-table-images-content-i-time">发布时间：2016-09-12</div>
-                                    <div className="tpl-i-title">
-                                        “你的旅行，是什么颜色？” 晒照片，换北欧梦幻极光之旅！
-                                    </div>
-                                    <Link className="tpl-table-images-content-i">
-                                        <div className="tpl-table-images-content-i-info">
-                                            <span className="ico">
-                                 </span>
-                                    </div>
-                                        <Link to="/tutorial/1" className="nav-link">
-
-                                            <span className="tpl-table-images-content-i-shadow">
-                                            </span>
-                                            <img src="assets/img/32.jpg" alt=""/>
-                                        </Link>
-                                    </Link>
-
-                                    <div className="tpl-table-images-content-block">
-                                        <div className="tpl-i-font">
-                                            你最喜欢的艺术作品，告诉大家它们的------名图画，色彩，交织，撞色，线条雕塑装置当代古代现代作品的照片。
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> */}
                             {videoList()}
-
-
+                           
                         </div>
 
                     </div>

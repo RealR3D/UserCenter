@@ -7,16 +7,17 @@ class IndexPage extends React.Component {
     }
     render() {
       const {userlevel, userName} = this.props.config.user;
-      return (<div>
+      return (
         <div id="doc3">
-          <div id="bd">
-            <div className="grid-2 clearfix" id="grid">
-              <Slider active="4" userName={userName} userlevel={userlevel} />
-              {this.props.children}
+          <div>
+            <div>
+              <div id="grid">
+                <Slider active="5" userName={userName} userlevel={userlevel} />
+                {this.props.children}
+              </div>
             </div>
           </div>
-        </div>
-       </div>);
+        </div>);
     }
 }
 function mapStateToProps(state) {

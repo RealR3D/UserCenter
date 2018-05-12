@@ -29,7 +29,7 @@ class Item extends React.Component {
 export default class Menu extends React.Component {
     constructor(props) {
         super(props);
-        const {active, userName} = props;
+        const {active, userName } = props;
         this.state = {
             userName,
             item0: false,
@@ -40,6 +40,7 @@ export default class Menu extends React.Component {
             item5: false,
             ["item" + active]: true
         }
+
         this.handleChange = this.handleChange.bind(this);
     }
     handleChange (key, value) {
@@ -49,13 +50,14 @@ export default class Menu extends React.Component {
         this.props.userlevel !== "2" && this.usermanage.parentNode.removeChild(this.usermanage);
     }
     render() {
+
         const {item0, item1, item2, item3, item4, item5} = this.state,
             state1 = item1 ? "block" : "none",
             state2 = item2 ? "block" : "none",
             state4 = item4 ? "block" : "none",
             state5 = item5 ? "block" : "none";
         return (
-        <div className="tpl-left-nav tpl-left-nav-hover">
+        <div className="tpl-left-nav tpl-left-nav-hover" id="left-nav">
             <div className="tpl-left-nav-title">用户中心</div>
             <div className="tpl-left-nav-list">
                 <ul className="tpl-left-nav-menu">

@@ -56,16 +56,16 @@ class UploadPage extends React.Component {
                             <div className="am-u-sm-12 am-u-md-9">
                                 <form className="am-form am-form-horizontal">
                                     <div className="am-form-group">
-                                        <label htmlFor="user-name" className="am-u-sm-3 am-form-label">项目名称</label>
+                                        <label htmlFor="#" className="am-u-sm-3 am-form-label">项目名称</label>
                                         <div className="am-u-sm-9">
-                                            <input type="text" id="project-name" value={this.state.name} placeholder="必填*" onChange={this.nameChange} />
+                                            <input type="text" value={this.state.name} placeholder="必填*" onChange={this.nameChange} />
                                             <small></small>
                                         </div>
                                     </div>
                                     <div className="am-form-group">
-                                        <label htmlFor="user-phone" className="am-u-sm-3 am-form-label">项目所在地</label>
+                                        <label htmlFor="#" className="am-u-sm-3 am-form-label">项目所在地</label>
                                         <div className="am-u-sm-9">
-                                            <input type="tel" id="project-address" value={this.state.area} onChange={this.areaChange} />
+                                            <input type="tel" value={this.state.area} onChange={this.areaChange} />
                                         </div>
                                     </div>
                                     <div className="am-form-group">

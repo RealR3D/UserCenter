@@ -15,8 +15,8 @@ class Item extends React.Component {
     delProject (ev) {
         ev.preventDefault();
         const _this = this,
-            confirm = window.confirm("确定删除此项目？");
-        confirm && $.ajax({
+            isDelProject = window.confirm("确定删除此项目？");
+        isDelProject && $.ajax({
             url: "http://192.168.1.148:66/ajax/ProjectAjax.ashx?cmd=Del",
             type: "post",
             data: {Pro_ID: _this.props.data.Id},
@@ -124,9 +124,9 @@ class PageList extends React.Component {
         const {list, Counts, select, pageNumber, updateDataList} = this.state;
         return (
             <ul id="page-list" className="am-pagination tpl-pagination">
-                <li><a onClick={updateDataList(Math.max(pageNumber - 1, 1), {select})}>«</a></li>
+                <li><a onClick={updateDataList(Math.max(pageNumber - 1, 1), {select})}>&lt;</a></li>
                 {list}
-                <li><a onClick={updateDataList(Math.min(pageNumber + 1, Counts), {select})}>»</a></li>
+                <li><a onClick={updateDataList(Math.min(pageNumber + 1, Counts), {select})}>&gt;</a></li>
             </ul>
         );
     }
@@ -240,7 +240,7 @@ class ProjectPage extends React.Component {
         this.setState({child: <UpdateProject data={data} index={index} userName={this.state.userName} delChild={this.delChild} />});
     }
     delChildren (pageNumber) {
-        let {Counts, children} = this.state,
+        let {Counts} = this.state,
             pageCount = Math.ceil((Counts - 1) / 10);
         pageNumber = Math.max(Math.min(pageNumber, pageCount), 1);
         this.updateDataList(pageNumber, "")();
@@ -266,21 +266,31 @@ class ProjectPage extends React.Component {
                     for (let i = 0; i < len; i ++) {
                         children.push(<Item key={i} index={i} data={list[i]} pageNumber={pageNumber} userlevel={userlevel} delChildren={_this.delChildren} updateChild={_this.updateChild} />);
                     };
-                    let pageIndex = pageNumber;
-                    if (totalPages > 5) {
-                        if (pageIndex <= minusIndex) {
-                            pageIndex = 1;
-                        } else if (totalPages - pageIndex <= minusIndex) {
-                            pageIndex = totalPages - pageCount + 1;
+                    if (Counts !== 0) {
+                        let pageIndex = pageNumber;
+                        if (totalPages > 5) {
+                            if (pageIndex <= minusIndex) {
+                                pageIndex = 1;
+                            } else if (totalPages - pageIndex <= minusIndex) {
+                                pageIndex = totalPages - pageCount + 1;
+                            } else {
+                                pageIndex = pageIndex - minusIndex;
+                            };
                         } else {
-                            pageIndex = pageIndex - minusIndex;
+                            pageIndex = 1;
                         };
-                    } else {
-                        pageIndex = 1;
-                    };
-                    for (let i = 0; i < pageCount; i ++) {
-                        const nowPageNumber = i + pageIndex;
-                        pageList.push(<li key={nowPageNumber} className={nowPageNumber === pageNumber ? "am-active" : ""}><a onClick={_this.updateDataList(nowPageNumber, select)}>{nowPageNumber}</a></li>);
+                        pageList.push(<li key={pageIndex - 1}>
+                            <a onClick={_this.updateDataList.bind(_this, select, Math.max(pageNumber - 1, 1))}>&lt;</a>
+                        </li>);
+                        for (let i = 0; i < pageCount; i ++) {
+                            const nowPageNumber = i + pageIndex;
+                            pageList.push(<li key={nowPageNumber} className={nowPageNumber === pageNumber ? "am-active" : ""}>
+                                <a onClick={_this.updateDataList(nowPageNumber, select)}>{nowPageNumber}</a>
+                            </li>);
+                        };
+                        pageList.push(<li key={totalPages + 1}>
+                            <a onClick={_this.updateDataList.bind(_this, select, Math.min(pageNumber + 1, totalPages))}>&gt;</a>
+                        </li>);
                     };
                     _this.setState({Counts, select, children, pageNumber, totalPages, pageList});
                 }
@@ -341,11 +351,7 @@ class ProjectPage extends React.Component {
                         </div>
                         <nav id="nav">
                             <span>共{Counts}个项目</span>
-                            <ul id="page-list" className="am-pagination tpl-pagination">
-                                <li><a onClick={this.updateDataList(Math.max(pageNumber - 1, 1), select)}>«</a></li>
-                                {pageList}
-                                <li><a onClick={this.updateDataList(Math.min(pageNumber + 1, totalPages), select)}>»</a></li>
-                            </ul>
+                            <ul id="page-list" className="am-pagination tpl-pagination">{pageList}</ul>
                         </nav>
                     </div>
                 </div>

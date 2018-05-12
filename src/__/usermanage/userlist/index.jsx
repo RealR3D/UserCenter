@@ -5,28 +5,27 @@ import { connect } from 'react-redux';
 import cx from 'classnames';
 import { Slider } from '../../components';
 
-class Item extends React.Component {
-    render () {
-        const {Email, Mobile, UserName, DisplayName, CountOfLogin, LastActivityDate} = this.props.data;
-        return (
-            <tr>
-                <td>{UserName}</td>
-                <td className="am-hide-sm-only">{DisplayName}</td>
-                <td className="am-hide-sm-only">{Mobile}</td>
-                <td className="am-hide-sm-only">{Email}</td>
-                <td className="am-hide-sm-only">{CountOfLogin}</td>
-                <td className="am-hide-sm-only">{new Date(parseInt(LastActivityDate.match(/\d+/))).toLocaleString()}</td>
-                <td className="am-hide-sm-only">
-                    <button onClick={this.updateUser} className="am-btn am-btn-default am-btn-xs am-text-secondary">
-                        <Link to={"/usermanage/userinfo?name=" + UserName} >
-                            <span className="am-icon-pencil-square-o"></span>&nbsp;修改
-                        </Link>
-                    </button>
-                </td>
-            </tr>
-        );
-    }
+function Item (props) {
+    const {Email, Mobile, UserName, DisplayName, CountOfLogin, LastActivityDate} = props.data;
+    return (
+        <tr>
+            <td>{UserName}</td>
+            <td className="am-hide-sm-only">{DisplayName}</td>
+            <td className="am-hide-sm-only">{Mobile}</td>
+            <td className="am-hide-sm-only">{Email}</td>
+            <td className="am-hide-sm-only">{CountOfLogin}</td>
+            <td className="am-hide-sm-only">{new Date(parseInt(LastActivityDate.match(/\d+/))).toLocaleString()}</td>
+            <td className="am-hide-sm-only">
+                <button className="am-btn am-btn-default am-btn-xs am-text-secondary">
+                    <Link to={"/usermanage/userinfo?name=" + UserName} >
+                        <span className="am-icon-pencil-square-o"></span>&nbsp;修改
+                    </Link>
+                </button>
+            </td>
+        </tr>
+    );
 }
+
 class UserListPage extends React.Component {
     constructor(props) {
         super(props);
@@ -63,10 +62,18 @@ class UserListPage extends React.Component {
                 } else {
                     pageIndex = 1;
                 };
-                for (let i = 0; i < pageCount; i ++) {
-                    const nowPageNumber = i + pageIndex;
-                    pageList.push(<li key={nowPageNumber} className={nowPageNumber === index ? "am-active" : ""}>
-                        <a onClick={_this.updateUserList.bind(_this, keys, nowPageNumber)}>{nowPageNumber}</a>
+                if (Counts !== 0) {
+                    pageList.push(<li key={pageIndex - 1}>
+                        <a onClick={_this.updateUserList.bind(_this, keys, Math.max(index - 1, 1))}>&lt;</a>
+                    </li>);
+                    for (let i = 0; i < pageCount; i ++) {
+                        const nowPageNumber = i + pageIndex;
+                        pageList.push(<li key={nowPageNumber} className={nowPageNumber === index ? "am-active" : ""}>
+                            <a onClick={_this.updateUserList.bind(_this, keys, nowPageNumber)}>{nowPageNumber}</a>
+                        </li>);
+                    };
+                    pageList.push(<li key={pageListNumber + 1}>
+                        <a onClick={_this.updateUserList.bind(_this, keys, Math.min(index + 1, pageListNumber))}>&gt;</a>
                     </li>);
                 };
                 _this.setState({arr, keys, index, Counts, pageList, pageListNumber});
@@ -127,11 +134,7 @@ class UserListPage extends React.Component {
                         </div>
                         <nav id="nav">
                             <span>共{Counts}名用户</span>
-                            <ul id="page-list" className="am-pagination tpl-pagination">
-                                <li><a onClick={this.updateUserList.bind(this, keys, Math.max(index - 1, 1))}>«</a></li>
-                                {pageList}
-                                <li><a onClick={this.updateUserList.bind(this, keys, Math.min(index + 1, pageListNumber))}>»</a></li>
-                            </ul>
+                            <ul id="page-list" className="am-pagination tpl-pagination">{pageList}</ul>
                         </nav>
                     </div>
                 </div>

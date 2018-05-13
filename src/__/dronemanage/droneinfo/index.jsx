@@ -53,7 +53,6 @@ class DroneInfoPage extends React.Component {
             type: "POST",
             data: {ID, Title, Machine_Code, Register_Date, UserName},
             success (data) {
-                console.log(data);
                 data = JSON.parse(data);
                 data.code === "0" 
                     ? hashHistory.push("/dronemanage/dronelist")

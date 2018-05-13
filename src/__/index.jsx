@@ -19,7 +19,6 @@ class IndexPage extends React.Component {
         });
     }    
     render() {
-        console.log("传过来",this.props.config.user)
         const user = this.props.config.user || new models.User();
         let logsEl = [];
         if (this.state.logs) {

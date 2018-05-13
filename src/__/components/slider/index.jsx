@@ -104,7 +104,7 @@ export default class Menu extends React.Component {
                             </li>
                         </ul>
                     </li>
-                    <li ref={ele => this.drone = ele} className="tpl-left-nav-item">
+                    <li ref={ele => this.dronemanage = ele} className="tpl-left-nav-item">
                         <Item name="item4" value={item4} title="无人机管理" iconName="am-icon-paper-plane" onStateChange={this.handleChange} />
                         <ul className="tpl-left-nav-sub-menu" style={{"display": state4}}>
                             <li>

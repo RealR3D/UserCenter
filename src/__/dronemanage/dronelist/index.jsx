@@ -16,7 +16,6 @@ class Item extends React.Component {
         const _this = this,
             {Id} = _this.props.data, {UserName} = _this.state,
             isDelDrone = window.confirm("确定删除此架无人机？");
-            console.log(Id, UserName);
         isDelDrone && $.ajax({
             url: "http://192.168.1.148:66/ajax/Serial_NumberAjax.ashx?cmd=Del",
             type: "post",

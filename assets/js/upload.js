@@ -43,8 +43,8 @@ function get_signature(ID, name, userName)
 {
     //可以判断当前expire是否超过了当前时间,如果超过了当前时间,就重新取一下.3s 做为缓冲
     now = timestamp = Date.parse(new Date()) / 1000; 
-    if (expire < now + 3)
-    {
+    // if (expire < now + 3)
+    // {
         body = send_request(ID, name, userName);
         var obj = JSON.parse(body);
         host = obj['host'];
@@ -54,9 +54,9 @@ function get_signature(ID, name, userName)
         expire = parseInt(obj['expire']);
         callbackbody = obj['callback'];
         key = obj['dir'];
-        return true;
-    }
-    return false;
+    //     return true;
+    // }
+    // return false;
 };
 
 function random_string(len) {

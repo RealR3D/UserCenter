@@ -1363,4 +1363,10 @@ pre {
     #grid {
         display: inline;
     }
+    #grid #content-page {
+        margin-left: 0;
+    }
+    .uc-header .nav-login li > a{
+        padding: 0;
+    }
 }

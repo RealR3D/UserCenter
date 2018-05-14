@@ -53,13 +53,13 @@ class IndexPage extends React.Component {
         var videoList = () => {
             var res = [];
             for(var i = 0; i < 7; i++) {
-                res.push(<div>
+                res.push(<div key={i}>
                     <div className="am-u-sm-12 am-u-md-6 am-u-lg-4">
                         <div className="tpl-table-images-content">
                             <div className="tpl-i-title" style={{fontSize: 18}}>
                             {this.state.videoList[i].title}
                             </div>
-                                <div className="nav-link tpl-table-images-content-i" onClick={this.handleClick()}>
+                                <div className="nav-link tpl-table-images-content-i" onClick={this.handleClick(i)}>
 
                                     <span className="tpl-table-images-content-i-shadow">
                                     </span>

@@ -65,7 +65,7 @@ class CreateUserPage extends React.Component {
         };
         _this.loading(true);
         $.ajax({
-            url: "http://192.168.1.148:66/ajax/UserCheck.ashx?cmd=Reg",
+            url: "../ajax/UserCheck.ashx?cmd=Reg",
             type: "POST",
             data: {
                 DisplayName,

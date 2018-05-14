@@ -16,11 +16,11 @@ function Item (props) {
             <td className="am-hide-sm-only">{CountOfLogin}</td>
             <td className="am-hide-sm-only">{new Date(parseInt(LastActivityDate.match(/\d+/))).toLocaleString()}</td>
             <td className="am-hide-sm-only">
-                <button className="am-btn am-btn-default am-btn-xs am-text-secondary">
-                    <Link to={"/usermanage/userinfo?name=" + UserName} >
+                <Link to={"/usermanage/userinfo?name=" + UserName}>
+                    <button className="am-btn am-btn-default am-btn-xs am-text-secondary">
                         <span className="am-icon-pencil-square-o"></span>&nbsp;修改
-                    </Link>
-                </button>
+                    </button>
+                </Link>
             </td>
         </tr>
     );
@@ -40,7 +40,7 @@ class UserListPage extends React.Component {
     updateUserList (keys, index) {
         const _this = this, {Superior} = _this.state;
         $.ajax({
-            url: "http://192.168.1.148:66/ajax/UserCheck.ashx?cmd=GetAllUser",
+            url: "../ajax/UserCheck.ashx?cmd=GetAllUser",
             type: "POST",
             data: {keys, index, UserName: Superior},
             success (data) {

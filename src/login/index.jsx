@@ -14,11 +14,15 @@ class IndexPage extends React.Component {
         this.state = {
             account: '',
             password: '',
-            controls: {}
+            controls: {},
+            logo_url: 'assets/img/logo.png'
         };
     }
-    componentDidMount() {
-    }
+    componentWillMount() {
+        if (window.location.origin === "http://www.3dnext.cn") {
+            this.setState({logo_url: 'assets/img/real.png'});
+        };
+    }   
     submit() {
         if (!this.state.account) {
             this.state.controls.error = '请输入登录帐号';
@@ -55,10 +59,14 @@ class IndexPage extends React.Component {
         const weiboUrl = this.props.config.weiboUrl ? this.props.config.weiboUrl + '?redirectUrl=' + encodeURIComponent(redirectUrl) : '';
         const weixinUrl = this.props.config.weixinUrl ? this.props.config.weixinUrl + '?redirectUrl=' + encodeURIComponent(redirectUrl) : '';
         const qqUrl = this.props.config.qqUrl ? this.props.config.qqUrl + '?redirectUrl=' + encodeURIComponent(redirectUrl) : '';
+        const {logo_url} = this.state;
         return (<div>
         <div id="doc">
           <div className="login-page">
-            <div id="loginHeader"><img src="assets/img/logo.png" title="login_logo" /><p style={{fontSize: "3rem",lineHeight: "6rem"}}>人工智能云平台 全自动别墅建模</p></div>
+            <div id="loginHeader">
+                <img src={logo_url} title="login_logo" className='logo' />
+                <p className='title'>人工智能云平台 全自动别墅建模</p>
+            </div>
             <div className="login-content">
               <div className="center_content">
                 <div className="content-layout">
@@ -83,7 +91,7 @@ class IndexPage extends React.Component {
             this.setState(this.state);
         }} onKeyUp={(e) => {
             e.keyCode === 13 && this.submit();
-        }} value={this.state.account} className="quc-input quc-input-account" type="text" name="account" placeholder="请输入手机号/邮箱/用户名" autoComplete="off" style={{width: "395px"}}/>
+        }} value={this.state.account} className="quc-input quc-input-account" type="text" name="account" placeholder="请输入手机号/邮箱/用户名" autoComplete="off" style={{width: "100%"}}/>
                                 </span>
                               </p>
                               <p className={cx({ "quc-field quc-field-password quc-input-long": true, "input-focus": this.state.controls.password })}>
@@ -100,7 +108,7 @@ class IndexPage extends React.Component {
             this.setState(this.state);
         }} onKeyUp={(e) => {
             e.keyCode === 13 && this.submit();
-        }} value={this.state.password} className="quc-input quc-input-password" type="password" name="password" placeholder="输入个密码把" autoComplete="off"  style={{width: "395px"}}/>
+        }} value={this.state.password} className="quc-input quc-input-password" type="password" name="password" placeholder="输入个密码把" autoComplete="off"  style={{width: "100%"}}/>
                                 </span>
                               </p>
                               <p className={cx({ "quc-field quc-field-submit": true, "disabled": this.state.controls.submitting })}>

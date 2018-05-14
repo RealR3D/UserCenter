@@ -85,7 +85,7 @@ class UploadFile extends React.Component {
                         form.append("UserName", userName);
                         form.append("file", file.getNative());
                         $.ajax({
-                            url: "http://192.168.1.148:66/ajax/FileConsole.ashx?cmd=GetImgInfo",
+                            url: "../ajax/FileConsole.ashx?cmd=GetImgInfo",
                             type: "POST",
                             data: form,
                             processData: false,
@@ -94,7 +94,7 @@ class UploadFile extends React.Component {
                     };
                     if (id === files[len].id && isSuccess) {
                         $.ajax({
-                            url: "http://192.168.1.148:66/ajax/FileConsole.ashx?cmd=finish",
+                            url: "../ajax/FileConsole.ashx?cmd=finish",
                             type: "POST",
                             data: {ProID: ID, UserName: userName},
                             success (data) {
@@ -181,7 +181,7 @@ class ProjectPage extends React.Component {
     componentWillMount () {
         const _this = this, Pro_ID = _this.state.ID;
         $.ajax({
-            url: "http://192.168.1.148:66/ajax/ProjectAjax.ashx?cmd=GetCurrent",
+            url: "../ajax/ProjectAjax.ashx?cmd=GetCurrent",
             type: "post",
             async: false,
             data: {Pro_ID},

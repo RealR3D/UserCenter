@@ -89,7 +89,7 @@ class UserInfoPage extends React.Component {
         });
     }
     render() {
-        const {Email, Mobile, Password, DisplayName} = this.state;
+        const {Email, Mobile, Password, DisplayName, UserName} = this.state;
         return (
             <div id="content-page">
                 <div className="tpl-portlet-components">
@@ -100,6 +100,13 @@ class UserInfoPage extends React.Component {
                         <div className="am-g tpl-amazeui-form">
                             <div className="am-u-sm-12 am-u-md-9">
                                 <form className="am-form am-form-horizontal">
+                                    <div className="am-form-group" style={{marginBottom: "14px"}}>
+                                        <label htmlFor="#" className="am-u-sm-3 am-form-label">用户名</label>
+                                        <div className="am-u-sm-9">
+                                            <input type="text" name="UserName" value={UserName} disabled="disabled" /> 
+                                            <small>&nbsp;</small>
+                                        </div>
+                                    </div>
                                     <div className="am-form-group" style={{marginBottom: "14px"}}>
                                         <label htmlFor="#" className="am-u-sm-3 am-form-label">真实姓名</label>
                                         <div className="am-u-sm-9">

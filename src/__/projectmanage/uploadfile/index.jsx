@@ -105,7 +105,7 @@ class ProjectPage extends React.Component {
                                 data: {ProID: ID, UserName: userName},
                                 success (data) {
                                     JSON.parse(data).code === "0"
-                                        ? hashHistory.push(`/feature/projectProfile?ID=${ID}`)
+                                        ? hashHistory.push(`/projectmanage/projectprofile?ID=${ID}`)
                                         : alert(data.msg);
                                 }
                             });

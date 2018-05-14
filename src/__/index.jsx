@@ -19,7 +19,6 @@ class IndexPage extends React.Component {
         });
     }    
     render() {
-        console.log("传过来",this.props.config.user)
         const user = this.props.config.user || new models.User();
         let logsEl = [];
         if (this.state.logs) {
@@ -54,7 +53,7 @@ class IndexPage extends React.Component {
                                     </div>
                                 </div>
                                 <div className="tpl-echarts" id="tpl-echarts-A" style={{background: "url(assets/img/fly1.jpg)",backgroundPosition: "center center"}}>
-                                    <Link to="/feature/createProject" className="am-btn am-btn-default tpl-echarts-btn" style={{background: "rgba(255, 255, 255, 0.5)"}} id="upload-btn">
+                                    <Link to="/projectmanage/createProject" className="am-btn am-btn-default tpl-echarts-btn" style={{background: "rgba(255, 255, 255, 0.5)"}} id="upload-btn">
                                         <h1 className="h1-fonts">创建项目</h1>
                                     </Link>
                                 </div>
@@ -69,7 +68,7 @@ class IndexPage extends React.Component {
                                     </div>
                                 </div>
                                 <div className="tpl-echarts" id="tpl-echarts-A" style={{background: "url('assets/img/32.jpg')"}}>
-                                    <Link to="/feature/myProject" className="am-btn am-btn-default tpl-echarts-btn" style={{background: "rgba(255, 255, 255, 0.5)"}} id="project-btn">
+                                    <Link to="/projectmanage/projectlist" className="am-btn am-btn-default tpl-echarts-btn" style={{background: "rgba(255, 255, 255, 0.5)"}} id="project-btn">
                                         <h1 className="h1-fonts">我的项目</h1>
                                     </Link>
                                 </div>

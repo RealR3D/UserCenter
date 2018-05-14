@@ -78,11 +78,9 @@ class CreateUserPage extends React.Component {
             success (data) {
                 data = JSON.parse(data);
                 _this.setState({email, mobile, password, userName});
-                if (data.code === "0") {
-                    setTimeout(() => hashHistory.push("/usermanage/userlist"), 100);
-                } else if (data.code === "1") {
-                    utils.Swal.error(new Error(data.msg));
-                };
+                data.code === "0"
+                    ? setTimeout(() => hashHistory.push("/usermanage/userlist"), 100)
+                    : utils.Swal.error(new Error(data.msg));
             }
         });
     }

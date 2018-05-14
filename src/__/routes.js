@@ -21,13 +21,9 @@ export default {
   getChildRoutes(location, cb) {
     require.ensure([], (require) => {
       cb(null, [
-        // require('./menu/routes').default,
-        // require('./profile/routes').default,
-        // require('./security/routes').default,
-        // require('./writing/routes').default,
         require('./info/routes').default,
         require('./service/routes').default,
-        require('./feature/routes').default,
+        require('./projectmanage/routes').default,
         require('./usermanage/routes').default,
         require('./dronemanage/routes').default,
         require('./tutorial/routes').default

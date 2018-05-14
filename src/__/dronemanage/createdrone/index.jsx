@@ -47,11 +47,9 @@ class CreateDronePage extends React.Component {
             data: {Title, UserName, Machine_Code, Register_Date},
             success (data) {
                 data = JSON.parse(data);
-                if (data.code === "0") {
-                    setTimeout(() => hashHistory.push("/dronemanage/dronelist"), 100);
-                } else if (data.code === "1") {
-                    utils.Swal.error(new Error(data.msg));
-                };
+                data.code === "0"
+                    ? setTimeout(() => hashHistory.push("/dronemanage/dronelist"), 100)
+                    : utils.Swal.error(new Error(data.msg));
             }
         });
     }
@@ -86,7 +84,7 @@ class CreateDronePage extends React.Component {
                                     <div className="am-form-group" style={{marginBottom: "30px"}}>
                                         <label htmlFor="#" className="am-u-sm-3 am-form-label">出厂日期</label>
                                         <div className="am-u-sm-9">
-                                            <input type="date" name="Register_Date" placeholder="请输入无人机出厂日期" value={Register_Date} onChange={this.stateChange} />
+                                            <input type="date" name="Register_Date" placeholder="请输入无人机出厂日期" value={Register_Date} onChange={this.stateChange} style={{width: '160px'}} />
                                         </div>
                                     </div>
                                     <div className="am-form-group" style={{marginBottom: "30px"}}>

@@ -66,13 +66,13 @@ export default class Menu extends React.Component {
                         <Item value={item0} title="首页" iconName="am-icon-home" to="/" />
                     </li>
                     <li className="tpl-left-nav-item">
-                        <Item name="item1" value={item1} title="功能选项" iconName="iconfont icon-gongnengguanli" onStateChange={this.handleChange} />
+                        <Item name="item1" value={item1} title="项目管理" iconName="iconfont icon-gongnengguanli" onStateChange={this.handleChange} />
                         <ul className="tpl-left-nav-sub-menu" style={{"display": state1}}>
                             <li>
-                            <Link to="/feature/createProject" className="nav-link">
+                            <Link to="/projectmanage/createProject" className="nav-link">
                                 <i className="am-icon-angle-right"></i><span>创建项目</span>
                             </Link>
-                            <Link to="/feature/myProject" className="nav-link">
+                            <Link to="/projectmanage/projectList" className="nav-link">
                                 <i className="am-icon-angle-right"></i><span>所有项目</span>
                             </Link>
                             </li>
@@ -104,7 +104,7 @@ export default class Menu extends React.Component {
                             </li>
                         </ul>
                     </li>
-                    <li ref={ele => this.drone = ele} className="tpl-left-nav-item">
+                    <li ref={ele => this.dronemanage = ele} className="tpl-left-nav-item">
                         <Item name="item4" value={item4} title="无人机管理" iconName="am-icon-paper-plane" onStateChange={this.handleChange} />
                         <ul className="tpl-left-nav-sub-menu" style={{"display": state4}}>
                             <li>

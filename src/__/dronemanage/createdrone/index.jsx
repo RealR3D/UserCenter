@@ -42,7 +42,7 @@ class CreateDronePage extends React.Component {
         };
         _this.loading(true);
         $.ajax({
-            url: "http://192.168.1.148:66/ajax/Serial_NumberAjax.ashx?cmd=Add",
+            url: "../ajax/Serial_NumberAjax.ashx?cmd=Add",
             type: "POST",
             data: {Title, UserName, Machine_Code, Register_Date},
             success (data) {
@@ -84,7 +84,7 @@ class CreateDronePage extends React.Component {
                                     <div className="am-form-group" style={{marginBottom: "30px"}}>
                                         <label htmlFor="#" className="am-u-sm-3 am-form-label">出厂日期</label>
                                         <div className="am-u-sm-9">
-                                            <input type="date" name="Register_Date" placeholder="请输入无人机出厂日期" value={Register_Date} onChange={this.stateChange} style={{width: '160px'}} />
+                                            <input type="date" name="Register_Date" placeholder="请输入无人机出厂日期" value={Register_Date} onChange={this.stateChange} style={{width: '180px'}} />
                                         </div>
                                     </div>
                                     <div className="am-form-group" style={{marginBottom: "30px"}}>

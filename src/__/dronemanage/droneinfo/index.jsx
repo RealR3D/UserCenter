@@ -49,7 +49,7 @@ class DroneInfoPage extends React.Component {
         };
         _this.loading(true);
         $.ajax({
-            url: "http://192.168.1.148:66/ajax/Serial_NumberAjax.ashx?cmd=Mod",
+            url: "../ajax/Serial_NumberAjax.ashx?cmd=Mod",
             type: "POST",
             data: {ID, Title, Machine_Code, Register_Date, UserName},
             success (data) {
@@ -69,7 +69,7 @@ class DroneInfoPage extends React.Component {
     componentWillMount () {
         const _this = this, {ID, UserName} = _this.state;
         $.ajax({
-            url: "http://192.168.1.148:66/ajax/Serial_NumberAjax.ashx?cmd=Current",
+            url: "../ajax/Serial_NumberAjax.ashx?cmd=Current",
             type: "POST",
             data: {ID, UserName},
             success (data) {
@@ -110,7 +110,7 @@ class DroneInfoPage extends React.Component {
                                     <div className="am-form-group" style={{marginBottom: "14px"}}>
                                         <label htmlFor="#" className="am-u-sm-3 am-form-label">出厂日期</label>
                                         <div className="am-u-sm-9">
-                                            <input type="date" name="Register_Date" value={Register_Date} placeholder="请输入无人机出厂日期" onChange={this.infoChange} /> 
+                                            <input type="date" name="Register_Date" value={Register_Date} placeholder="请输入无人机出厂日期" onChange={this.infoChange} style={{width: '180px'}} /> 
                                             <small>&nbsp;</small>
                                         </div>
                                     </div>

@@ -17,7 +17,7 @@ class Item extends React.Component {
             {Id} = _this.props.data, {UserName} = _this.state,
             isDelDrone = window.confirm("确定删除此架无人机？");
         isDelDrone && $.ajax({
-            url: "http://192.168.1.148:66/ajax/Serial_NumberAjax.ashx?cmd=Del",
+            url: "../ajax/Serial_NumberAjax.ashx?cmd=Del",
             type: "post",
             data: {ID: Id, UserName},
             success (data) {
@@ -38,14 +38,16 @@ class Item extends React.Component {
                 <td className="am-hide-sm-only">
                     <div className="am-btn-toolbar">
                         <div className="am-btn-group am-btn-group-xs">
-                            <button className="am-btn am-btn-default am-btn-xs am-text-secondary">
-                                <Link to={"/dronemanage/droneinfo?id=" + Id} >
+                            <Link to={"/dronemanage/droneinfo?id=" + Id}>
+                                <button className="am-btn am-btn-default am-btn-xs am-text-secondary">
                                     <span className="am-icon-pencil-square-o"></span>&nbsp;修改
-                                </Link>
-                            </button>
-                            <button onClick={this.delDrone} className="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only">
-                                <span className="am-icon-trash-o"></span>&nbsp;删除
-                            </button>
+                                </button>
+                            </Link>
+                            <Link>
+                                <button onClick={this.delDrone} className="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only">
+                                    <span className="am-icon-trash-o"></span>&nbsp;删除
+                                </button>
+                            </Link>
                         </div>
                     </div>
                 </td>
@@ -75,7 +77,7 @@ class DroneListPage extends React.Component {
     updateDroneList (select, index) {
         const _this = this, {UserName} = _this.state;
         $.ajax({
-            url: "http://192.168.1.148:66/ajax/Serial_NumberAjax.ashx?cmd=Get",
+            url: "../ajax/Serial_NumberAjax.ashx?cmd=Get",
             type: "POST",
             data: {index, select, UserName},
             success (data) {

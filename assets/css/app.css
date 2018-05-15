@@ -1049,7 +1049,7 @@ ul.tpl-dropdown-content li>a.tpl-dropdown-content-message:last-child {
 
 .tpl-echarts {
     width: 100%;
-    min-height: 400px;
+    /* min-height: 400px; */
 }
 
 .tpl-scrollable {
@@ -2039,6 +2039,7 @@ ul.tpl-dropdown-content li>a.tpl-dropdown-content-message:last-child {
         width: 100%;
     }
     .tpl-content-wrapper {
+        margin-top: 10px;
         padding-left: 0;
     }
     .tpl-content-wrapper .row{

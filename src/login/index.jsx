@@ -14,11 +14,15 @@ class IndexPage extends React.Component {
         this.state = {
             account: '',
             password: '',
-            controls: {}
+            controls: {},
+            logo_url: 'assets/img/logo.png'
         };
     }
-    componentDidMount() {
-    }
+    componentWillMount() {
+        if (window.location.origin === "http://www.3dnext.cn") {
+            this.setState({logo_url: 'assets/img/real.png'});
+        };
+    }   
     submit() {
         if (!this.state.account) {
             this.state.controls.error = '请输入登录帐号';
@@ -55,10 +59,14 @@ class IndexPage extends React.Component {
         const weiboUrl = this.props.config.weiboUrl ? this.props.config.weiboUrl + '?redirectUrl=' + encodeURIComponent(redirectUrl) : '';
         const weixinUrl = this.props.config.weixinUrl ? this.props.config.weixinUrl + '?redirectUrl=' + encodeURIComponent(redirectUrl) : '';
         const qqUrl = this.props.config.qqUrl ? this.props.config.qqUrl + '?redirectUrl=' + encodeURIComponent(redirectUrl) : '';
+        const {logo_url} = this.state;
         return (<div>
         <div id="doc">
           <div className="login-page">
-            <div id="loginHeader"><img src="assets/img/logo.png" title="login_logo" /><p style={{fontSize: "2.5rem",lineHeight: "6rem"}}>人工智能云平台 全自动别墅建模</p></div>
+            <div id="loginHeader">
+                <img src={logo_url} title="login_logo" className='logo' />
+                <p className='title'>人工智能云平台 全自动别墅建模</p>
+            </div>
             <div className="login-content">
               <div className="center_content">
                 <div className="content-layout">

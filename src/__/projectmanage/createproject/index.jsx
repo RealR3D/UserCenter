@@ -33,7 +33,7 @@ class UploadPage extends React.Component {
         const {area, name} = this.state,
             UserName = this.props.config.user.userName;
         $.ajax({
-            url: "http://192.168.1.148:66/ajax/ProjectAjax.ashx?cmd=Create",
+            url: "../ajax/ProjectAjax.ashx?cmd=Create",
             type: "POST",
             data: {area, pro_name: name, UserName},
             success (data) {

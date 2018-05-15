@@ -1,3 +1,46 @@
+.title {
+    --fontSize: 32px;
+    --lineHeight: 5rem;
+}
+.quc-mod-sign-in .quc-main .quc-input {
+    --inputFontSize: 18px;
+}
+@media screen and (max-width: 525px) {
+    .title {
+        --fontSize: 25px;
+        --lineHeight: 5rem;
+    }
+    .quc-mod-sign-in .quc-main .quc-input {
+        --inputFontSize: 18px;
+    }
+}
+@media screen and (max-width: 420px) {
+    .title {
+        --fontSize: 18px;
+        --lineHeight: 4rem;
+    }
+    .quc-mod-sign-in .quc-main .quc-input {
+        --inputFontSize: 16px;
+    }
+}
+@media screen and (max-width: 375px) {
+    .title {
+        --fontSize: 16px;
+        --lineHeight: 3rem;
+    }
+    .quc-mod-sign-in .quc-main .quc-input {
+        --inputFontSize: 14px;
+    }
+}
+@media screen and (max-width: 320px) {
+    .title {
+        --fontSize: 14px;
+        --lineHeight: 3rem;
+    }
+    .quc-mod-sign-in .quc-main .quc-input {
+        --inputFontSize: 12px;
+    }
+}
 html {
     background: #fff;
     overflow: scroll-y
@@ -71,12 +114,12 @@ div.quc-wrapper .quc-email-hint {
 .login-content {
     margin: 0 auto;
     float: none;
-    padding: 0 1.5rem;
-    width: 83%
+    padding: .5rem 1.5rem;
+    width: 100%
 }
 .login-content .content-layout #loginWrap {
     overflow: hidden;
-    padding: 25px
+    padding: 0 25px
 }
 .quc-clearfix, .quc-clearfix:after {
     clear: both
@@ -213,8 +256,8 @@ div.quc-wrapper .quc-email-hint {
 .quc-mod-sign-in .quc-main .quc-input {
     background: none;
     border: 0;
-    font-size: 16px;
     /* margin: 8px 8px 3px; */
+    font-size: var(--inputFontSize);
     height: 33px;
     outline: none;
     width: 230px
@@ -360,9 +403,11 @@ div.quc-mod-sign-in .quc-field-captcha span.input-focus {
     color: #e5e5e5;
     margin: 0 24px
 }
-@media screen and (max-width: 1000px) {
-    .login-content {
-        padding: 0;
-        width: 100%
-    }
+.logo {
+    width: 30%;
+    max-width: 300px;
+}
+.title {
+    font-size: var(--fontSize);
+    line-height: var(--lineHeight);
 }

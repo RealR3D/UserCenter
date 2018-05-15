@@ -23,7 +23,7 @@ class Item extends React.Component {
         const _this = this,
             isDelProject = window.confirm("确定删除此项目？");
         isDelProject && $.ajax({
-            url: "http://192.168.1.148:66/ajax/ProjectAjax.ashx?cmd=Del",
+            url: "../ajax/ProjectAjax.ashx?cmd=Del",
             type: "post",
             data: {Pro_ID: _this.props.data.Id},
             success (data) {
@@ -38,7 +38,7 @@ class Item extends React.Component {
         const _this = this, {Id, State, Mx_Url, Fbx_Url, A3x_Url, Message, UserName, isSendEmail} = _this.props.data, index = _this.props.index;
         if (State === 2) {
             $.ajax({
-                url: "http://192.168.1.148:66/ajax/ProjectAjax.ashx?cmd=ModState",
+                url: "../ajax/ProjectAjax.ashx?cmd=ModState",
                 type: "POST",           
                 data: {ProID: Id},
                 success (data) {
@@ -62,29 +62,29 @@ class Item extends React.Component {
         if (userlevel === "1") {
             if (State === 0 || State === 1) {
                 editBtn = null;
-            } else if (State === 2) {
-                editBtn = <button ref={ele => this.editBtn = ele} className="am-btn am-btn-default am-btn-xs am-text-secondary" onClick={this.updateProject}>
-                    <span className="am-icon-pencil-square-o"></span>&nbsp;<span>建模</span>
-                </button>;
-            } else if (State === 3) {
-                editBtn = <button ref={ele => this.editBtn = ele} className="am-btn am-btn-default am-btn-xs am-text-secondary" onClick={this.updateProject}>
-                    <span className="am-icon-pencil-square-o"></span>&nbsp;<span>上传</span>
-                </button>;
             } else {
-                editBtn = <button ref={ele => this.editBtn = ele} className="am-btn am-btn-default am-btn-xs am-text-secondary" onClick={this.updateProject}>
-                    <span className="am-icon-pencil-square-o"></span>&nbsp;<span>修改</span>
-                </button>;
+                let state = "";
+                if (State === 2) {
+                    state = "建模";
+                } else if (State === 3) {
+                    state = "上传";
+                } else if (State === 4) {
+                    state = "修改";
+                };
+                editBtn = <Link>
+                    <button ref={ele => this.editBtn = ele} className="am-btn am-btn-default am-btn-xs am-text-secondary" onClick={this.updateProject}>
+                        <span className="am-icon-pencil-square-o"></span>&nbsp;<span>{state}</span>
+                    </button>
+                </Link>;
             };
         };
         for (let i = 0; i < 5; i ++) {
             const className = "am-icon-star" + (i < Stars ? " star" : "-o");
-            StarsList.push(
-                <StarItem key={i} className={className} />
-            );
+            StarsList.push(<StarItem key={i} className={className} />);
         };
         return (
             <tr>
-                <td><input type="checkbox" /></td>
+                {/* <td><input type="checkbox" /></td> */}
                 <td><Link to={`/projectmanage/projectProfile?ID=${Id}`}>{Title}</Link></td>
                 <td className="am-hide-sm-only item-state-td" ref={ele => this.stateTd = ele}>{state}</td>
                 <td className="am-hide-sm-only">{UserName}</td>
@@ -93,15 +93,17 @@ class Item extends React.Component {
                 <td>
                     <div className="am-btn-toolbar">
                         <div className="am-btn-group am-btn-group-xs">
-                            <button className="am-btn am-btn-default am-btn-xs am-text-secondary">
-                                <Link to={`/projectmanage/projectProfile?ID=${Id}`}>
+                            <Link to={`/projectmanage/projectProfile?ID=${Id}`}>
+                                <button className="am-btn am-btn-default am-btn-xs am-text-secondary">
                                     <span className="am-icon-file-text-o"></span>&nbsp;详细
-                                </Link>
-                            </button>
+                                </button>
+                            </Link>
                             {editBtn}
-                            <button onClick={this.delProject} className="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only">
-                                <span className="am-icon-trash-o"></span>&nbsp;删除
-                            </button>
+                            <Link>
+                                <button onClick={this.delProject} className="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only">
+                                    <span className="am-icon-trash-o"></span>&nbsp;删除
+                                </button>
+                            </Link>
                         </div>
                     </div>
                 </td>
@@ -181,7 +183,7 @@ class UpdateProject extends React.Component {
         Mx_Url = (Mx_Url ? Mx_Url : "").replace("http://3mxdata.oss-cn-hangzhou.aliyuncs.com/", "");
         Fbx_Url = (Fbx_Url ? Fbx_Url : "").replace("http://fbxdata.oss-cn-hangzhou.aliyuncs.com/", "");
         $.ajax({
-            url: "http://192.168.1.148:66/ajax/ProjectAjax.ashx?cmd=Upload",
+            url: "../ajax/ProjectAjax.ashx?cmd=Upload",
             type: "POST",
             data: {
                 State, Message, UserName: userName, isSendEmail, Stars,
@@ -303,7 +305,7 @@ class ProjectPage extends React.Component {
         return () => {
             const _this = this, reg = /\d+/g, {userName, userlevel} = _this.state, children = [], pageList = [];
             $.ajax({
-                url: "http://192.168.1.148:66/ajax/ProjectAjax.ashx?cmd=GetAll",
+                url: "../ajax/ProjectAjax.ashx?cmd=GetAll",
                 type: "POST",
                 data: {UserName: userName, index, select},
                 success (data) {
@@ -383,7 +385,7 @@ class ProjectPage extends React.Component {
                                     <table className="am-table am-table-striped am-table-hover table-main" style={{marginBottom: 0}}>
                                         <thead>
                                             <tr>
-                                                <th className="table-check"></th>
+                                                {/* <th className="table-check"></th> */}
                                                 <th className="table-title">项目名称</th>
                                                 <th className="table-author am-hide-sm-only">状态</th>
                                                 <th className="table-author am-hide-sm-only">上传用户</th>

@@ -86,7 +86,7 @@ export default class Menu extends React.Component {
                                 <i className="am-icon-angle-right"></i><span>创建项目</span>
                             </Link>
                             <Link to="/projectmanage/projectList" className="nav-link">
-                                <i className="am-icon-angle-right"></i><span>所有项目</span>
+                                <i className="am-icon-angle-right"></i><span>项目列表</span>
                             </Link>
                             </li>
                         </ul>
@@ -108,11 +108,11 @@ export default class Menu extends React.Component {
                         <Item name="item3" value={item3} title="用户管理" iconName="am-icon-cogs" onStateChange={this.handleChange} />
                         <ul className="tpl-left-nav-sub-menu" style={{"display": state3}}>
                             <li>
-                                <Link to="/usermanage/userlist" className="nav-link">
-                                    <i className="am-icon-angle-right"></i><span>用户列表</span>
-                                </Link>
                                 <Link to="usermanage/createuser" className="nav-link">
                                     <i className="am-icon-angle-right"></i><span>创建用户</span>
+                                </Link>
+                                <Link to="/usermanage/userlist" className="nav-link">
+                                    <i className="am-icon-angle-right"></i><span>用户列表</span>
                                 </Link>
                             </li>
                         </ul>
@@ -133,9 +133,6 @@ export default class Menu extends React.Component {
                     <li className="tpl-left-nav-item">
                         <Item to="/tutorial/" value={item5} title="在线教程" iconName="iconfont am-icon-book" onStateChange={this.handleChange} />
                     </li>
-                    {/* <li className="tpl-left-nav-item">
-                        <Item to="/service/" value={item3} title="技术支持" iconName="iconfont icon-shouhou" onStateChange={this.handleChange} />
-                    </li> */}
                 </ul>
             </div>
         </div>);

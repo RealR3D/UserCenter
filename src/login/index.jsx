@@ -58,7 +58,7 @@ class IndexPage extends React.Component {
         return (<div>
         <div id="doc">
           <div className="login-page">
-            <div id="loginHeader"><img src="assets/img/logo.png" title="login_logo" /><p style={{fontSize: "3rem",lineHeight: "6rem"}}>人工智能云平台 全自动别墅建模</p></div>
+            <div id="loginHeader"><img src="assets/img/logo.png" title="login_logo" /><p style={{fontSize: "2.5rem",lineHeight: "6rem"}}>人工智能云平台 全自动别墅建模</p></div>
             <div className="login-content">
               <div className="center_content">
                 <div className="content-layout">
@@ -83,7 +83,7 @@ class IndexPage extends React.Component {
             this.setState(this.state);
         }} onKeyUp={(e) => {
             e.keyCode === 13 && this.submit();
-        }} value={this.state.account} className="quc-input quc-input-account" type="text" name="account" placeholder="请输入手机号/邮箱/用户名" autoComplete="off" style={{width: "395px"}}/>
+        }} value={this.state.account} className="quc-input quc-input-account" type="text" name="account" placeholder="请输入手机号/邮箱/用户名" autoComplete="off" style={{width: "100%"}}/>
                                 </span>
                               </p>
                               <p className={cx({ "quc-field quc-field-password quc-input-long": true, "input-focus": this.state.controls.password })}>
@@ -100,7 +100,7 @@ class IndexPage extends React.Component {
             this.setState(this.state);
         }} onKeyUp={(e) => {
             e.keyCode === 13 && this.submit();
-        }} value={this.state.password} className="quc-input quc-input-password" type="password" name="password" placeholder="输入个密码把" autoComplete="off"  style={{width: "395px"}}/>
+        }} value={this.state.password} className="quc-input quc-input-password" type="password" name="password" placeholder="输入个密码把" autoComplete="off"  style={{width: "100%"}}/>
                                 </span>
                               </p>
                               <p className={cx({ "quc-field quc-field-submit": true, "disabled": this.state.controls.submitting })}>

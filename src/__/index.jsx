@@ -38,7 +38,7 @@ class IndexPage extends React.Component {
         </li>);
         }
         return (
-          <div id="doc3">
+          <div id="doc3" >
             <div>
               <div>
                 <Slider userName={user.userName} userlevel={user.userlevel}/>

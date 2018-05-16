@@ -46,11 +46,24 @@ export default class Menu extends React.Component {
     handleChange (key, value) {
         this.setState({[key]: value});
     }
+    componentWillReceiveProps(){
+        let sWidth = window.screen.width
+        let isNavShow = sWidth <= 1000 ? false : true
+        let oNav = document.getElementsByClassName('tpl-left-nav-hover')[0]
+        oNav.style.display = isNavShow ? 'block' : 'none'
+    }
     componentDidMount () {
         this.props.userlevel !== "2" && this.usermanage.parentNode.removeChild(this.usermanage);
         this.props.userlevel !== "1" && this.dronemanage.parentNode.removeChild(this.dronemanage);
     }
+    componentDidUpdate(){
+        // let sWidth = window.screen.width
+        // let isNavShow = sWidth <= 1000 ? false : true
+        
+    }
     render() {
+        // let sWidth = window.screen.width
+        // let isNavShow = sWidth <= 1000 ? false : true
 
         const {item0, item1, item2, item3, item4, item5} = this.state,
             state1 = item1 ? "block" : "none",

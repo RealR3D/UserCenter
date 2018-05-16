@@ -83,7 +83,8 @@ input, select, button {
 }
 #upload-btn, #project-btn {
     width: 100%;
-    height: 400px;
+    /* height: 400px; */
+    min-height: 277px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -236,7 +237,9 @@ input, select, button {
     padding: 20px;
     background: #e9ecf3;
     height: 100%;
+    /* overflow-y: scroll; */
     overflow-y: scroll;
+    -webkit-overflow-scrolling:touch;
 }
 #doc4 {
     zoom: 1
@@ -1362,5 +1365,15 @@ pre {
 @media screen and (max-width: 1000px) {
     #grid {
         display: inline;
+    }
+    #grid #content-page {
+        margin-top: 10px;
+        margin-left: 0;
+    }
+    .uc-header .nav-login li > a{
+        padding: 0;
+    }
+    #doc3{
+        padding: 0;
     }
 }

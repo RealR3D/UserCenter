@@ -115,7 +115,7 @@ div.quc-wrapper .quc-email-hint {
     margin: 0 auto;
     float: none;
     padding: .5rem 1.5rem;
-    width: 83%
+    width: 100%
 }
 .login-content .content-layout #loginWrap {
     overflow: hidden;
@@ -256,8 +256,8 @@ div.quc-wrapper .quc-email-hint {
 .quc-mod-sign-in .quc-main .quc-input {
     background: none;
     border: 0;
+    /* margin: 8px 8px 3px; */
     font-size: var(--inputFontSize);
-    margin: 8px 8px 3px;
     height: 33px;
     outline: none;
     width: 230px
@@ -284,12 +284,13 @@ div.quc-wrapper .quc-email-hint {
 }
 .quc-mod-sign-in .quc-field-account .quc-input-bg, .quc-mod-sign-in .quc-field-password .quc-input-bg, .quc-mod-sign-in .quc-field-captcha .quc-input-bg {
     background: #fff;
-    width: calc(100% - 35px);
+    width: 100%;
 }
 .quc-mod-sign-in .quc-field-account .quc-input-bg, .quc-mod-sign-in .quc-field-password .quc-input-bg {
     display: inline-block;
     *display: inline-block;
     height: 48px;
+    padding: 8px 8px 3px;
     *zoom: 1
 }
 .quc-mod-sign-in .quc-field-captcha .quc-input-bg {

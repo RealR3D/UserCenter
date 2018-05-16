@@ -188,7 +188,7 @@ class ProjectPage extends React.Component {
             success (data) {
                 data = JSON.parse(data);
                 let {Title, State, Fbx_Url, A3x_Url, Message, UserName} = data;
-                if (A3x_Url) {A3x_Url = `http://vrplanner.cn/preview.html?url=${A3x_Url}`};
+                if (A3x_Url) {A3x_Url = `http://www.real3d.cn/preview/index.html?url=${A3x_Url}`};
                 _this.setState({
                     State,
                     Message,

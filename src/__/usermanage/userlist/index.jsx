@@ -40,7 +40,7 @@ class UserListPage extends React.Component {
     updateUserList (keys, index) {
         const _this = this, {Superior} = _this.state;
         $.ajax({
-            url: "../ajax/UserCheck.ashx?cmd=GetAllUser",
+            url: "http://192.168.1.148:66/ajax/UserCheck.ashx?cmd=GetAllUser",
             type: "POST",
             data: {keys, index, UserName: Superior},
             success (data) {

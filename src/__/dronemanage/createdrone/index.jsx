@@ -42,7 +42,7 @@ class CreateDronePage extends React.Component {
         };
         _this.loading(true);
         $.ajax({
-            url: "../ajax/Serial_NumberAjax.ashx?cmd=Add",
+            url: "http://192.168.1.148:66/ajax/Serial_NumberAjax.ashx?cmd=Add",
             type: "POST",
             data: {Title, UserName, Machine_Code, Register_Date},
             success (data) {

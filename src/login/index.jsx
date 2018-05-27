@@ -12,6 +12,7 @@ class IndexPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            title: '人工智能云平台 全自动别墅建模',
             account: '',
             password: '',
             controls: {},
@@ -19,8 +20,8 @@ class IndexPage extends React.Component {
         };
     }
     componentWillMount() {
-        if (window.location.origin === "http://www.3dnext.cn") {
-            this.setState({logo_url: 'assets/img/real.png'});
+        if (window.location.origin.includes("3dnext.cn")) {
+            this.setState({logo_url: 'assets/img/3dnext.png', title: '人工智能云平台 全自动照片建模'});
         };
     }   
     submit() {
@@ -59,13 +60,13 @@ class IndexPage extends React.Component {
         const weiboUrl = this.props.config.weiboUrl ? this.props.config.weiboUrl + '?redirectUrl=' + encodeURIComponent(redirectUrl) : '';
         const weixinUrl = this.props.config.weixinUrl ? this.props.config.weixinUrl + '?redirectUrl=' + encodeURIComponent(redirectUrl) : '';
         const qqUrl = this.props.config.qqUrl ? this.props.config.qqUrl + '?redirectUrl=' + encodeURIComponent(redirectUrl) : '';
-        const {logo_url} = this.state;
+        const {title, logo_url} = this.state;
         return (<div>
         <div id="doc">
           <div className="login-page">
             <div id="loginHeader">
                 <img src={logo_url} title="login_logo" className='logo' />
-                <p className='title'>人工智能云平台 全自动别墅建模</p>
+                <p className='title'>{title}</p>
             </div>
             <div className="login-content">
               <div className="center_content">

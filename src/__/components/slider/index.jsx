@@ -38,7 +38,8 @@ export default class Menu extends React.Component {
             item3: false,
             item4: false,
             item5: false,
-            ["item" + active]: true
+            item6: false,
+            ['item' + active]: true,
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -53,23 +54,16 @@ export default class Menu extends React.Component {
         oNav.style.display = isNavShow ? 'block' : 'none'
     }
     componentDidMount () {
+        this.props.userlevel !== "2" && this.custom.parentNode.removeChild(this.custom);
         this.props.userlevel !== "2" && this.usermanage.parentNode.removeChild(this.usermanage);
         this.props.userlevel !== "1" && this.dronemanage.parentNode.removeChild(this.dronemanage);
     }
-    componentDidUpdate(){
-        // let sWidth = window.screen.width
-        // let isNavShow = sWidth <= 1000 ? false : true
-        
-    }
     render() {
-        // let sWidth = window.screen.width
-        // let isNavShow = sWidth <= 1000 ? false : true
-
-        const {item0, item1, item2, item3, item4, item5} = this.state,
-            state1 = item1 ? "block" : "none",
-            state2 = item2 ? "block" : "none",
-            state3 = item3 ? "block" : "none",
-            state4 = item4 ? "block" : "none";
+        const {item0, item1, item2, item3, item4, item5, item6} = this.state,
+            state1 = item1 ? 'block' : 'none',
+            state2 = item2 ? 'block' : 'none',
+            state3 = item3 ? 'block' : 'none',
+            state4 = item4 ? 'block' : 'none';
         return (
         <div className="tpl-left-nav tpl-left-nav-hover" id="left-nav">
             <div className="tpl-left-nav-title">用户中心</div>
@@ -105,7 +99,7 @@ export default class Menu extends React.Component {
                         </ul>
                     </li>
                     <li id="usermanage" ref={ele => this.usermanage = ele} className="tpl-left-nav-item">
-                        <Item name="item3" value={item3} title="用户管理" iconName="am-icon-cogs" onStateChange={this.handleChange} />
+                        <Item name="item3" value={item3} title="用户管理" iconName="am-icon-users" onStateChange={this.handleChange} />
                         <ul className="tpl-left-nav-sub-menu" style={{"display": state3}}>
                             <li>
                                 <Link to="usermanage/createuser" className="nav-link">
@@ -130,8 +124,11 @@ export default class Menu extends React.Component {
                             </li>
                         </ul>
                     </li>
+                    <li ref={ele => this.custom = ele} className="tpl-left-nav-item">
+                        <Item to="/custom/" value={item5} title="自定义设置" iconName="iconfont am-icon-cogs" onStateChange={this.handleChange} />
+                    </li>
                     <li className="tpl-left-nav-item">
-                        <Item to="/tutorial/" value={item5} title="在线教程" iconName="iconfont am-icon-book" onStateChange={this.handleChange} />
+                        <Item to="/tutorial/" value={item6} title="在线教程" iconName="iconfont am-icon-book" onStateChange={this.handleChange} />
                     </li>
                 </ul>
             </div>

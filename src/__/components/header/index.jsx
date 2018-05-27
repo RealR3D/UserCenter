@@ -49,6 +49,9 @@ export default class Header extends React.Component {
         };
         this.setState({full, text});
     }
+    componentWillMount () {
+        
+    }
     render() {
         const {userName} = this.state;
         return (

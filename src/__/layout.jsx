@@ -9,7 +9,7 @@ import * as utils from '../lib/utils';
 class LayoutPage extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {userlevel: ""};
+        this.state = {logo: '', title: '用户中心', userlevel: ''};
     }
     toggleLeftNav(){
         let oNav = document.getElementsByClassName('tpl-left-nav-hover')[0]
@@ -24,12 +24,13 @@ class LayoutPage extends React.Component {
             return;
         };
         $.ajax({
-            url: "../ajax/UserCheck.ashx?cmd=isCheck",
+            url: "http://192.168.1.148:66/ajax/UserCheck.ashx?cmd=isCheck",
             type: "POST",
             async: false,
             data: {UserName: _this.props.config.user.userName},
             success (data) {
-                _this.setState({userlevel: JSON.parse(data).msg});
+                const {msg, logo, title} = JSON.parse(data);
+                _this.setState({logo, title, userlevel: msg});
             }
         });
     }

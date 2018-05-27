@@ -23,7 +23,7 @@ class Item extends React.Component {
         const _this = this,
             isDelProject = window.confirm("确定删除此项目？");
         isDelProject && $.ajax({
-            url: "../ajax/ProjectAjax.ashx?cmd=Del",
+            url: "http://192.168.1.148:66/ajax/ProjectAjax.ashx?cmd=Del",
             type: "post",
             data: {Pro_ID: _this.props.data.Id},
             success (data) {
@@ -38,7 +38,7 @@ class Item extends React.Component {
         const _this = this, {Id, State, Mx_Url, Fbx_Url, A3x_Url, Message, UserName, isSendEmail} = _this.props.data, index = _this.props.index;
         if (State === 2) {
             $.ajax({
-                url: "../ajax/ProjectAjax.ashx?cmd=ModState",
+                url: "http://192.168.1.148:66/ajax/ProjectAjax.ashx?cmd=ModState",
                 type: "POST",           
                 data: {ProID: Id},
                 success (data) {
@@ -183,7 +183,7 @@ class UpdateProject extends React.Component {
         Mx_Url = (Mx_Url ? Mx_Url : "").replace("http://3mxdata.oss-cn-hangzhou.aliyuncs.com/", "");
         Fbx_Url = (Fbx_Url ? Fbx_Url : "").replace("http://fbxdata.oss-cn-hangzhou.aliyuncs.com/", "");
         $.ajax({
-            url: "../ajax/ProjectAjax.ashx?cmd=Upload",
+            url: "http://192.168.1.148:66/ajax/ProjectAjax.ashx?cmd=Upload",
             type: "POST",
             data: {
                 State, Message, UserName: userName, isSendEmail, Stars,
@@ -305,7 +305,7 @@ class ProjectPage extends React.Component {
         return () => {
             const _this = this, reg = /\d+/g, {userName, userlevel} = _this.state, children = [], pageList = [];
             $.ajax({
-                url: "../ajax/ProjectAjax.ashx?cmd=GetAll",
+                url: "http://192.168.1.148:66/ajax/ProjectAjax.ashx?cmd=GetAll",
                 type: "POST",
                 data: {UserName: userName, index, select},
                 success (data) {

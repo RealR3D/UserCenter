@@ -23,6 +23,7 @@ export default {
       cb(null, [
         require('./info/routes').default,
         // require('./service/routes').default,
+        require('./custom/routes').default,
         require('./projectmanage/routes').default,
         require('./usermanage/routes').default,
         require('./dronemanage/routes').default,

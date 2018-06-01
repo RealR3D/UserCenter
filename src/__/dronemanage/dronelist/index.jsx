@@ -17,7 +17,7 @@ class Item extends React.Component {
             {Id} = _this.props.data, {UserName} = _this.state,
             isDelDrone = window.confirm("确定删除此架无人机？");
         isDelDrone && $.ajax({
-            url: "http://192.168.1.148:66/ajax/Serial_NumberAjax.ashx?cmd=Del",
+            url: "../ajax/Serial_NumberAjax.ashx?cmd=Del",
             type: "post",
             data: {ID: Id, UserName},
             success (data) {
@@ -77,7 +77,7 @@ class DroneListPage extends React.Component {
     updateDroneList (select, index) {
         const _this = this, {UserName} = _this.state;
         $.ajax({
-            url: "http://192.168.1.148:66/ajax/Serial_NumberAjax.ashx?cmd=Get",
+            url: "../ajax/Serial_NumberAjax.ashx?cmd=Get",
             type: "POST",
             data: {index, select, UserName},
             success (data) {

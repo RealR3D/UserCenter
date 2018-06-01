@@ -30,7 +30,7 @@ class ProjectPage extends React.Component {
                         { title: "Image files", extensions: "jpg,gif,png,bmp" }, 
                         { title: "Zip files", extensions: "zip,rar" }
                     ],
-                    max_file_size : '10mb',
+                    max_file_size : '10gb',
                     prevent_duplicates : true
                 },
                 init: {
@@ -91,7 +91,7 @@ class ProjectPage extends React.Component {
                             form.append("UserName", userName);
                             form.append("file", file.getNative());
                             $.ajax({
-                                url: "http://192.168.1.148:66/ajax/FileConsole.ashx?cmd=GetImgInfo",
+                                url: "../ajax/FileConsole.ashx?cmd=GetImgInfo",
                                 type: "POST",
                                 data: form,
                                 processData: false,
@@ -100,7 +100,7 @@ class ProjectPage extends React.Component {
                         };
                         if (id === files[len - 1].id && isSuccess) {
                             $.ajax({
-                                url: "http://192.168.1.148:66/ajax/FileConsole.ashx?cmd=finish",
+                                url: "../ajax/FileConsole.ashx?cmd=finish",
                                 type: "POST",
                                 data: {ProID: ID, UserName: userName},
                                 success (data) {

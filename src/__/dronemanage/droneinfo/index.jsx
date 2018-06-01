@@ -49,7 +49,7 @@ class DroneInfoPage extends React.Component {
         };
         _this.loading(true);
         $.ajax({
-            url: "http://192.168.1.148:66/ajax/Serial_NumberAjax.ashx?cmd=Mod",
+            url: "../ajax/Serial_NumberAjax.ashx?cmd=Mod",
             type: "POST",
             data: {ID, Title, Machine_Code, Register_Date, UserName},
             success (data) {
@@ -69,7 +69,7 @@ class DroneInfoPage extends React.Component {
     componentWillMount () {
         const _this = this, {ID, UserName} = _this.state;
         $.ajax({
-            url: "http://192.168.1.148:66/ajax/Serial_NumberAjax.ashx?cmd=Current",
+            url: "../ajax/Serial_NumberAjax.ashx?cmd=Current",
             type: "POST",
             data: {ID, UserName},
             success (data) {

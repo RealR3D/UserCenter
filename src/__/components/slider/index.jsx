@@ -125,10 +125,10 @@ export default class Menu extends React.Component {
                         </ul>
                     </li>
                     <li ref={ele => this.custom = ele} className="tpl-left-nav-item">
-                        <Item to="/custom/" value={item5} title="自定义设置" iconName="iconfont am-icon-cogs" onStateChange={this.handleChange} />
+                        <Item value={item5} title="自定义设置" iconName="am-icon-cogs" to="/custom/" />
                     </li>
                     <li className="tpl-left-nav-item">
-                        <Item to="/tutorial/" value={item6} title="在线教程" iconName="iconfont am-icon-book" onStateChange={this.handleChange} />
+                        <Item value={item6} title="在线教程" iconName="am-icon-book" to="/tutorial/" />
                     </li>
                 </ul>
             </div>

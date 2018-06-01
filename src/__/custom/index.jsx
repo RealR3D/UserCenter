@@ -25,8 +25,8 @@ class IndexPage extends React.Component {
         const fr = new FileReader(),
             file = ev.target.files[0],
             {size} = file;
-        size > 5 * 2 ** 20  // 图片大小限制为5MB
-            ? utils.Swal.error(new Error("请选择5MB以下的图片。"))
+        size > 3 * 2 ** 20  // 图片大小限制为3MB
+            ? utils.Swal.error(new Error("请选择3MB以下的图片。"))
             : (fr.addEventListener('loadend',  (ev) => {
                 const Logo_Img = ev.target.result;
                 this.logoImg.src = Logo_Img;
@@ -38,7 +38,7 @@ class IndexPage extends React.Component {
         const {ID, UserName, Title, Href_Url, Logo_Img, isAdd} = this.state, _this = this,
             oldData = {UserName, Title, Logo_Img, Href_Url},
             data = isAdd ? oldData : utils.assign(oldData, {ID}),
-            url = `http://192.168.1.148:66/ajax/Site_ManageAjax.ashx?cmd=${isAdd ? "Add" : "Mod"}`;
+            url = `../ajax/Site_ManageAjax.ashx?cmd=${isAdd ? "Add" : "Mod"}`;
         $.ajax({
             url,
             type: "POST",
@@ -54,7 +54,7 @@ class IndexPage extends React.Component {
     componentWillMount () {
         const {UserName} = this.state, _this = this;
         $.ajax({
-            url: "http://192.168.1.148:66/ajax/Site_ManageAjax.ashx?cmd=Get",
+            url: "../ajax/Site_ManageAjax.ashx?cmd=Get",
             type: "POST",
             data: {UserName},
             success (data) {

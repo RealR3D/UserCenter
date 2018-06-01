@@ -24,7 +24,7 @@ class LayoutPage extends React.Component {
             return;
         };
         $.ajax({
-            url: "http://192.168.1.148:66/ajax/UserCheck.ashx?cmd=isCheck",
+            url: "../ajax/UserCheck.ashx?cmd=isCheck",
             type: "POST",
             async: false,
             data: {UserName: _this.props.config.user.userName},

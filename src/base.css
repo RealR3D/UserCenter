@@ -366,7 +366,7 @@ input, select, button {
     width: 160px;
     background-size: contain;
     float: left;
-    background-position: 0 20px;
+    background-position: 0 15px;
 }
 .uc-header .logo #tap-change {
     font-size: 19px;

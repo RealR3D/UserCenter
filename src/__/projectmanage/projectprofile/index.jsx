@@ -3,7 +3,6 @@ import { Link, hashHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import cx from 'classnames';
-import { Slider } from '../../components';
 
 class UploadFile extends React.Component {
     constructor (props) {
@@ -26,7 +25,7 @@ class UploadFile extends React.Component {
             url: 'http://oss.aliyuncs.com',
             filters: {
                 mime_types: [{ title: "Image files", extensions: "jpg,gif,png,bmp" }],
-                max_file_size : '10gb',
+                max_file_size : '100gb',
                 prevent_duplicates : true
             },
             init: {
@@ -85,7 +84,7 @@ class UploadFile extends React.Component {
                         form.append("UserName", userName);
                         form.append("file", file.getNative());
                         $.ajax({
-                            url: "../ajax/FileConsole.ashx?cmd=GetImgInfo",
+                            url: "http://192.168.1.148:66/ajax/FileConsole.ashx?cmd=GetImgInfo",
                             type: "POST",
                             data: form,
                             processData: false,
@@ -94,7 +93,7 @@ class UploadFile extends React.Component {
                     };
                     if (id === files[len].id && isSuccess) {
                         $.ajax({
-                            url: "../ajax/FileConsole.ashx?cmd=finish",
+                            url: "http://192.168.1.148:66/ajax/FileConsole.ashx?cmd=finish",
                             type: "POST",
                             data: {ProID: ID, UserName: userName},
                             success (data) {
@@ -159,8 +158,8 @@ class ProjectPage extends React.Component {
             step: "",
             State: "",
             title: "",
-            value: "",
             mx_url: "",
+            editUrl: "",
             fbx_url: "",
             userName: "",
             preview_url: "",
@@ -179,42 +178,45 @@ class ProjectPage extends React.Component {
             : (step.__proto__.setProgress.call(step, step.stepContainer, curStep, 5), isUploadend && this.setState({State: curStep}));
     }
     componentWillMount () {
-        const _this = this, Pro_ID = _this.state.ID;
+        let editUrl = null, _this = this, Pro_ID = _this.state.ID;
         $.ajax({
-            url: "../ajax/ProjectAjax.ashx?cmd=GetCurrent",
+            url: "http://192.168.1.148:66/ajax/ProjectAjax.ashx?cmd=GetCurrent",
             type: "post",
             async: false,
-            data: {Pro_ID},
+            data: { Pro_ID },
             success (data) {
                 data = JSON.parse(data);
-                let {Title, State, Fbx_Url, A3x_Url, Message, UserName} = data;
-                if (A3x_Url) {A3x_Url = `http://www.real3d.cn/preview/index.html?url=${A3x_Url}`};
+                let { Title, State, Mx_Url, Fbx_Url, A3x_Url, Message, UserName } = data,
+                    isOwner = UserName === _this.props.config.user.userName;
+                if (A3x_Url) { A3x_Url = `/preview/index.html?url=${A3x_Url}` };
+                if (Mx_Url && isOwner) { editUrl = `/vrplanner/index.html?Pro_ID=${Pro_ID}` };
                 _this.setState({
                     State,
                     Message,
                     title: Title,
-                    value: Fbx_Url,
+                    editUrl,
                     fbx_url: Fbx_Url,
                     userName: UserName,
-                    mx_url: data.Mx_Url,
+                    mx_url: Mx_Url,
                     preview_url: A3x_Url
                 });
             }
         });
     }
     componentDidMount () {
-        let {State, mx_url, fbx_url, preview_url} = this.state, state = State === -1, step = null;
+        let { State, mx_url, editUrl, fbx_url, preview_url } = this.state, state = State === -1, step = null;
         State = state ? 5 : State === 0 ? State + 1 : State;
-        if (mx_url) {this.mxUrl.classList.remove("am-disabled")};
-        if (fbx_url) {this.fbxUrl.classList.remove("am-disabled")};
-        if (preview_url) {this.previewUrl.classList.remove("am-disabled")};
+        if (mx_url) { this.mxUrl.classList.remove("am-disabled") };
+        if (fbx_url) { this.fbxUrl.classList.remove("am-disabled") };
+        if (editUrl) { this.editUrl.classList.remove("am-disabled") };
+        if (preview_url) { this.previewUrl.classList.remove("am-disabled") };
         step = state
             ? new SetFailStep({curStep: State, content: ".stepCont"})
             : new SetStep({curStep: State, content: ".stepCont"});
         this.setState({step});
     }
     render(){
-        const {ID, title, value, State, userlevel, userName, mx_url, fbx_url, Message, preview_url} = this.state;
+        const {ID, title, State, userlevel, userName, mx_url, editUrl, fbx_url, Message, preview_url} = this.state;
         return (
             <div id="content-page">
                 <div className="tpl-portlet-components">
@@ -233,8 +235,9 @@ class ProjectPage extends React.Component {
                         </section>
                         <div style={{"textAlign": "center"}}>
                             <a href={fbx_url} ref={(ele) => this.fbxUrl = ele} download={title} className="am-btn am-disabled am-btn-primary">DAE模型下载<i className="am-icon-cloud-download"></i></a>&nbsp;
-                            <a href={mx_url} ref={(ele) => this.mxUrl = ele} download={title} className="am-btn am-disabled am-btn-primary">3MX模型下载<i className="am-icon-cloud-download"></i></a>&nbsp;
-                            <a href={preview_url} ref={(ele) => this.previewUrl = ele} target="_blank" className="am-btn am-disabled am-btn-primary">在线预览<i className="iconfont icon-yanjing"></i></a>
+                            <a href={mx_url} ref={ele => this.mxUrl = ele} download={title} className="am-btn am-disabled am-btn-primary">3MX模型下载<i className="am-icon-cloud-download"></i></a>&nbsp;
+                            <a href={preview_url} ref={ele => this.previewUrl = ele} target="_blank" className="am-btn am-disabled am-btn-primary">在线预览<i className="iconfont icon-yanjing"></i></a>&nbsp;
+                            <a href={editUrl} ref={ele => this.editUrl = ele} target="_blank" className="am-btn am-disabled am-btn-primary">在线编辑<i className="iconfont icon-yanjing"></i></a>
                         </div>
                         <div className="caption font-green bold" style={{display: (userlevel === "1" || State !== 0 ) ? "none" : "block"}}>文件上传</div>
                         <UploadFile ID={ID} name={title} State={State} userName={userName} userlevel={userlevel} progressChange={this.progressChange} />

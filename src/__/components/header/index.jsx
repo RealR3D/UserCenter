@@ -6,7 +6,8 @@ import client from '../../../lib/client';
 export default class Header extends React.Component {
     constructor(props) {
         super(props);
-        let {userlevel, userName} = props.config.user;
+        let {logoUrl} = this.props.config,
+            {userlevel, userName} = props.config.user;
         if (userlevel === "0") {
             userName = "用户：" + userName;
         } else if (userlevel === "1") {
@@ -15,6 +16,7 @@ export default class Header extends React.Component {
             userName = "厂家：" + userName;
         };
         this.state = {
+            logoUrl,
             userName,
             full: false,
             text: "开启全屏",
@@ -50,15 +52,17 @@ export default class Header extends React.Component {
         this.setState({full, text});
     }
     componentWillMount () {
-        
+        if (window.location.origin.includes("3dnext.cn")) {
+            this.setState({logoUrl: '/SiteFiles/Plugins/SS.Home/3dnext_logo.png'});
+        };
     }
     render() {
-        const {userName} = this.state;
+        const {logoUrl, userName} = this.state;
         return (
         <div id="hd">
             <div className="uc-header">
                 <h1 className="logo">
-                    <IndexLink to="/" style={{ backgroundImage: 'url(' + this.props.config.logoUrl + ')' }}/>
+                    <IndexLink to="/" style={{ backgroundImage: 'url(' + logoUrl + ')' }}/>
                 </h1>
                 <div className="am-icon-list tpl-header-nav-hover-ico" id="tap-change" onClick={this.props.toggleLeftNav}>
                 </div>

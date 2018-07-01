@@ -16,7 +16,7 @@ function SetStep(arg){
         stepContainerMar:20,
         nextBtn:'.nextBtn',
         prevBtn:'.prevBtn',
-        steps:['未上传','空三运算','正在建模','建模完成'],
+        steps:['未上传','数据预处理','正在建模','建模完成'],
         stepCounts:5,//总共的步骤数
         curStep:1,//当前显示第几页
         animating:false,
@@ -167,7 +167,7 @@ function SetFailStep(arg){
         stepContainerMar:20,
         nextBtn:'.nextBtn',
         prevBtn:'.prevBtn',
-        steps:['未上传','空三运算','正在建模','建模失败'],
+        steps:['未上传','数据预处理','正在建模','建模失败'],
         stepCounts:5,//总共的步骤数
         curStep:1,//当前显示第几页
         animating:false,

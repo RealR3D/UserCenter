@@ -2,7 +2,6 @@ import * as React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { loadConfig } from './lib/actions/config';
-import { Loading } from './components';
 import client from './lib/client';
 import './base.css';
 import './app.css';

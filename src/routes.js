@@ -9,6 +9,7 @@ export default {
   getChildRoutes(location, cb) {
     require.ensure([], (require) => {
       cb(null, [
+        // require('./vrplanner/routes').default,
         require('./findpwd/routes').default,
         require('./login/routes').default,
         require('./logout/routes').default,

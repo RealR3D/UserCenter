@@ -16,7 +16,7 @@ class LayoutPage extends React.Component {
         let displayStyle = getComputedStyle(oNav,null).display || div.currentStyle.display;
         let isShow = displayStyle === 'block' ? true : false
         oNav.style.display = !isShow ? 'block' : 'none'
-    }
+    } 
     componentWillMount() {
         const _this = this;
         if (!_this.props.config || !_this.props.config.user) {
@@ -24,7 +24,7 @@ class LayoutPage extends React.Component {
             return;
         };
         $.ajax({
-            url: "../ajax/UserCheck.ashx?cmd=isCheck",
+            url: "http://192.168.1.148:66/ajax/UserCheck.ashx?cmd=isCheck",
             type: "POST",
             async: false,
             data: {UserName: _this.props.config.user.userName},
@@ -36,7 +36,7 @@ class LayoutPage extends React.Component {
     }
     render() {        
         if (!this.props.config || !this.props.config.user) {
-            return null;    
+            return null;
         };
         this.props.config.user = utils.assign(this.props.config.user, this.state);
         return (<div>

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Link } from 'react-router';
-import cx from 'classnames';
 
 class Item extends React.Component {
     constructor (props) {
@@ -13,12 +12,12 @@ class Item extends React.Component {
         name && this.props.onStateChange(name, value);
     }
     render () {
-        let {to, name, title, value, iconName} = this.props,
+        let {to, name, title, value, iconName, target} = this.props,
             classNameA = "nav-link tpl-left-nav-link-list " + (value ? "active" : ""),
             classNameI = "am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right " + (value ? "tpl-left-nav-more-ico-rotate" : "");
         classNameI = name ? classNameI : "";
         return (
-            <Link className={classNameA} onClick={this.handleChange} to={to}>
+            <Link className={classNameA} target={target} onClick={this.handleChange} to={to}>
                 <i className={iconName}></i>
                 <span>{title}</span>
                 <i className={classNameI}></i>
@@ -39,6 +38,7 @@ export default class Menu extends React.Component {
             item4: false,
             item5: false,
             item6: false,
+            item7: false,
             ['item' + active]: true,
         }
 
@@ -59,7 +59,7 @@ export default class Menu extends React.Component {
         this.props.userlevel !== "1" && this.dronemanage.parentNode.removeChild(this.dronemanage);
     }
     render() {
-        const {item0, item1, item2, item3, item4, item5, item6} = this.state,
+        const { item0, item1, item2, item3, item4, item5, item6, item7 } = this.state,
             state1 = item1 ? 'block' : 'none',
             state2 = item2 ? 'block' : 'none',
             state3 = item3 ? 'block' : 'none',
@@ -129,6 +129,9 @@ export default class Menu extends React.Component {
                     </li>
                     <li className="tpl-left-nav-item">
                         <Item value={item6} title="在线教程" iconName="am-icon-book" to="/tutorial/" />
+                    </li>
+                    <li className="tpl-left-nav-item">
+                        <Item value={item7} title="模型管理" iconName="am-icon-book" to="/modelmanage/" />
                     </li>
                 </ul>
             </div>

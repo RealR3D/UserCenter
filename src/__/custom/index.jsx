@@ -38,7 +38,7 @@ class IndexPage extends React.Component {
         const {ID, UserName, Title, Href_Url, Logo_Img, isAdd} = this.state, _this = this,
             oldData = {UserName, Title, Logo_Img, Href_Url},
             data = isAdd ? oldData : utils.assign(oldData, {ID}),
-            url = `../ajax/Site_ManageAjax.ashx?cmd=${isAdd ? "Add" : "Mod"}`;
+            url = `http://192.168.1.148:66/ajax/Site_ManageAjax.ashx?cmd=${isAdd ? "Add" : "Mod"}`;
         $.ajax({
             url,
             type: "POST",
@@ -54,7 +54,7 @@ class IndexPage extends React.Component {
     componentWillMount () {
         const {UserName} = this.state, _this = this;
         $.ajax({
-            url: "../ajax/Site_ManageAjax.ashx?cmd=Get",
+            url: "http://192.168.1.148:66/ajax/Site_ManageAjax.ashx?cmd=Get",
             type: "POST",
             data: {UserName},
             success (data) {

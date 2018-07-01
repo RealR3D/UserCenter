@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Slider } from '../components';
 import { connect } from 'react-redux';
 
 class IndexPage extends React.Component {

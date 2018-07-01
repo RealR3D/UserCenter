@@ -1,5 +1,4 @@
 import * as React from 'react';
-import cx from 'classnames';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import * as models from '../lib/models';
@@ -7,10 +6,66 @@ import * as utils from '../lib/utils';
 import client from '../lib/client';
 import { Slider } from './components';
 import '../index.css';
+
+class PreviewDemoListitem extends React.Component {
+    render () {
+        let { Title, A3x_Url, S_ImageUrl } = this.props.data;
+        S_ImageUrl = S_ImageUrl ? S_ImageUrl : "http://3dnextstatic.oss-cn-hangzhou.aliyuncs.com/img/1530263028.png";
+        console.log(this.props.data)
+        return (
+            <li>
+                <a target="_blank" href={`http://www.real3d.cn/preview/index.html?url=${A3x_Url}`} style={{ backgroundImage:  `url(${S_ImageUrl})` }}>
+                    <p>{ Title }</p>
+                </a>
+            </li>
+        );
+    }
+}
+
 class IndexPage extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {logs: null};
+        this.state = {index: 1, logs: null, previewDemoList: []};
+    }
+    componentWillMount() {
+        const { index } = this.state;
+        let _this = this, previewDemoList = [];
+        $.ajax({
+            url: "http://192.168.1.148:66/ajax/ProjectAjax.ashx?cmd=GetDemo",
+            type: "POST",
+            data: { index },
+            success (d) {
+                const { data, Count } = JSON.parse(d);
+                if (Count <= 0 ) {
+                    utils.Swal.tip('预览数据只有这么多了哦~');
+                    return;
+                }; 
+                data.forEach((d, index) => {
+                    previewDemoList.push(<PreviewDemoListitem key={index} data={d} />);
+                });
+                _this.setState({ previewDemoList });
+            }
+        });
+    }
+    refreshDemoHandler (index) {
+        index = Math.max(index, 1);
+        let _this = this, previewDemoList = [];
+        $.ajax({
+            url: "http://192.168.1.148:66/ajax/ProjectAjax.ashx?cmd=GetDemo",
+            type: "POST",
+            data: { index },
+            success (d) {
+                const { data, Count } = JSON.parse(d);
+                if (Count <= 0 ) {
+                    utils.Swal.tip('预览数据只有这么多了哦~');
+                    return;
+                };
+                data.forEach((d, index) => {
+                    previewDemoList.push(<PreviewDemoListitem key={index} data={d} />);
+                });
+                _this.setState({ index, previewDemoList });
+            }
+        });
     }
     componentDidMount() {
         client.users.getLogs(10, '用户登录', (err, res) => {
@@ -20,23 +75,7 @@ class IndexPage extends React.Component {
     }    
     render() {
         const user = this.props.config.user || new models.User();
-        let logsEl = [];
-        if (this.state.logs) {
-            logsEl = this.state.logs.map((log) => {
-                return (<tr key={log.id}>
-            <td>{utils.toDateString(log.addDate)}</td>
-            <td>{utils.toTimeString(log.addDate)}</td>
-            <td>{log.ipAddress}</td>
-          </tr>);
-            });
-        }
-        let writingEl = null;
-        if (this.props.config.group.isWriting) {
-            writingEl = (<li>
-          <h3><i className="ico ico-guard"/> 内容投稿</h3>
-          <p><span className="fr"><Link to="/writing/new" className="lnk">投稿</Link></span> 发布稿件到对应的站点及栏目</p>
-        </li>);
-        }
+        const { index, previewDemoList }  =this.state;
         return (
           <div id="doc3" >
             <div>
@@ -73,6 +112,11 @@ class IndexPage extends React.Component {
                                     </Link>
                                 </div>
                             </div>
+                        </div>
+                        <div id="previewList">
+                            <div className="left_btn btn" onClick={this.refreshDemoHandler.bind(this, index - 1)}>&lt;</div>
+                            <ul>{previewDemoList}</ul>
+                            <div className="right_btn btn" onClick={this.refreshDemoHandler.bind(this, index + 1)}>&gt;</div>
                         </div>
                     </div>
                 </div>

@@ -366,7 +366,7 @@ input, select, button {
     width: 160px;
     background-size: contain;
     float: left;
-    background-position: 0 15px;
+    background-position: 0 13px;
 }
 .uc-header .logo #tap-change {
     font-size: 19px;
@@ -1340,6 +1340,9 @@ pre {
     cursor: pointer;
     width: 16px;
  }
+.update-project-item.input-group .update-project-checkbox[name="workState"] {
+     float: left;
+ }
 .update-project-textarea {
     width: 250px;
     height: 66px;
@@ -1376,4 +1379,71 @@ pre {
     #doc3{
         padding: 0;
     }
+}
+#previewList {
+    width: calc(100% - 36px);
+    height: 236px;
+    display: flex;
+    position: relative;
+    top: 1.5rem;
+    left: 1.5rem;
+    box-sizing: border-box;
+}
+#previewList .btn {
+    flex: 0 0 30px;
+    line-height: 236px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 3rem;
+    cursor: pointer;
+    opacity: 0;
+    user-select: none;
+}
+#previewList:hover .btn {
+    opacity: 1;
+    color: rgba(0, 0, 0, .6);
+}
+#previewList .btn:hover {
+    color: #000;
+}
+#previewList > ul {
+    flex: 1;
+    display: flex;
+}
+#previewList > ul > li {
+    flex: 1;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+#previewList > ul > li > a {
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: relative;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+#previewList > ul > li > a > p {
+    position: absolute;
+    bottom: -35px;
+    left: 0;
+    width: 100%;
+    height: 35px;
+    line-height: 30px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.3);
+    transition: .3s;
+    font-weight: bold;
+    font-size: 1.5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    -webkit-transition: .3s;
+    -moz-transition: .3s;
+    -ms-transition: .3s;
+    -o-transition: .3s;
+    color: #FFF;
+}
+#previewList > ul > li > a:hover p {
+    bottom: 0px;
 }

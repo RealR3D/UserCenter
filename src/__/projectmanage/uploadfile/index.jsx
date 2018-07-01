@@ -30,7 +30,7 @@ class ProjectPage extends React.Component {
                         { title: "Image files", extensions: "jpg,gif,png,bmp" }, 
                         { title: "Zip files", extensions: "zip,rar" }
                     ],
-                    max_file_size : '10gb',
+                    max_file_size : '100gb',
                     prevent_duplicates : true
                 },
                 init: {
@@ -81,7 +81,7 @@ class ProjectPage extends React.Component {
                         const id = file.id,
                             files = up.files,
                             len = files.length,
-                            isSuccess = info.status === 200,
+                            isSuccess = true,//info.status === 200,
                             oB = document.getElementById(id).getElementsByTagName('b')[0];
                         oB.innerHTML = "";
                         oB.classList.add(isSuccess ? "am-icon-check" : "am-icon-times");
@@ -91,7 +91,7 @@ class ProjectPage extends React.Component {
                             form.append("UserName", userName);
                             form.append("file", file.getNative());
                             $.ajax({
-                                url: "../ajax/FileConsole.ashx?cmd=GetImgInfo",
+                                url: "http://192.168.1.148:66/ajax/FileConsole.ashx?cmd=GetImgInfo",
                                 type: "POST",
                                 data: form,
                                 processData: false,
@@ -100,7 +100,7 @@ class ProjectPage extends React.Component {
                         };
                         if (id === files[len - 1].id && isSuccess) {
                             $.ajax({
-                                url: "../ajax/FileConsole.ashx?cmd=finish",
+                                url: "http://192.168.1.148:66/ajax/FileConsole.ashx?cmd=finish",
                                 type: "POST",
                                 data: {ProID: ID, UserName: userName},
                                 success (data) {

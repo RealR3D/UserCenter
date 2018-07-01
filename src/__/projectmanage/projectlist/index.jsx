@@ -1,9 +1,6 @@
 import * as React from 'react';
-import { Link, hashHistory } from 'react-router';
-import { bindActionCreators } from 'redux';
+import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import cx from 'classnames';
-import { Slider } from '../../components';
 import * as utils from '../../../lib/utils';
 
 function StarItem (props) {
@@ -23,7 +20,7 @@ class Item extends React.Component {
         const _this = this,
             isDelProject = window.confirm("确定删除此项目？");
         isDelProject && $.ajax({
-            url: "../ajax/ProjectAjax.ashx?cmd=Del",
+            url: "http://192.168.1.148:66/ajax/ProjectAjax.ashx?cmd=Del",
             type: "post",
             data: {Pro_ID: _this.props.data.Id},
             success (data) {
@@ -35,12 +32,12 @@ class Item extends React.Component {
         });
     }
     updateProject () {
-        const _this = this, {Id, State, Mx_Url, Fbx_Url, A3x_Url, Message, UserName, isSendEmail} = _this.props.data, index = _this.props.index;
+        const _this = this, { Id, State } = _this.props.data, index = _this.props.index;
         if (State === 2) {
             $.ajax({
-                url: "../ajax/ProjectAjax.ashx?cmd=ModState",
+                url: "http://192.168.1.148:66/ajax/ProjectAjax.ashx?cmd=ModState",
                 type: "POST",           
-                data: {ProID: Id},
+                data: { ProID: Id },
                 success (data) {
                     data = JSON.parse(data);
                     data.code === "0"
@@ -55,8 +52,8 @@ class Item extends React.Component {
         };
     }
     render () {
-        let StarsList = [], {State, Title, UserName, Id, Create_Time, Stars} = this.props.data,
-            {userlevel} = this.props, editBtn = "", state = ["未上传", "", "空三运算", "正在建模", "建模完成"][State];
+        let machineCode = null, StarsList = [], {State, Title, UserName, Id, Create_Time, Machine_Code, Stars} = this.props.data,
+            {userlevel} = this.props, editBtn = "", state = ["未上传", "", "数据预处理", "正在建模", "建模完成"][State];
         Create_Time = new Date(parseInt(Create_Time.match(/\d+/))).toLocaleString();
         state = State === -1 ? "建模失败" : state;
         if (userlevel === "1") {
@@ -77,6 +74,7 @@ class Item extends React.Component {
                     </button>
                 </Link>;
             };
+            machineCode = <td className="am-hide-sm-only">{Machine_Code}</td>;
         };
         for (let i = 0; i < 5; i ++) {
             const className = "am-icon-star" + (i < Stars ? " star" : "-o");
@@ -89,6 +87,7 @@ class Item extends React.Component {
                 <td className="am-hide-sm-only item-state-td" ref={ele => this.stateTd = ele}>{state}</td>
                 <td className="am-hide-sm-only">{UserName}</td>
                 <td className="am-hide-sm-only">{Create_Time}</td>
+                {machineCode}
                 <td className="am-hide-sm-only">{StarsList}</td>
                 <td>
                     <div className="am-btn-toolbar">
@@ -152,8 +151,9 @@ class PageList extends React.Component {
 class UpdateProject extends React.Component {
     constructor (props) {
         super(props);
-        this.state = utils.assign(props.data, {index: props.index, userName: props.userName, workState: true, isSendEmail: true, State: 4});
+        this.state = utils.assign(props.data, {index: props.index, userName: props.userName, file: null, workState: true, isSendEmail: true, State: 4});
         this.changeHandler = this.changeHandler.bind(this);
+        this.changeFileHandler = this.changeFileHandler.bind(this);
         this.updateProjectHandler = this.updateProjectHandler.bind(this);
     }
     clickHandler (j) {
@@ -178,18 +178,32 @@ class UpdateProject extends React.Component {
         };
         this.setState({State, [name]: value});
     }
+    changeFileHandler (ev) {
+        this.setState({file: ev.target.files[0]});
+    }
     updateProjectHandler () {
-        let _this = this, {Id, index, State, Stars, Mx_Url, A3x_Url, Fbx_Url, Message, userName, isSendEmail} = _this.state;
+        let _this = this, {Id, file, State, Stars, Mx_Url, A3x_Url, Fbx_Url, Message, userName, isSendEmail} = _this.state;
         Mx_Url = (Mx_Url ? Mx_Url : "").replace("http://3mxdata.oss-cn-hangzhou.aliyuncs.com/", "");
         Fbx_Url = (Fbx_Url ? Fbx_Url : "").replace("http://fbxdata.oss-cn-hangzhou.aliyuncs.com/", "");
+        let form = new FormData();
+        form.append('ProID', Id);
+        form.append("file", file);
+        form.append('Stars', Stars);
+        form.append('State', State);
+        form.append('mx_url', Mx_Url);
+        form.append('a3x_url', A3x_Url);
+        form.append('Message', Message);
+        form.append('fbx_url', Fbx_Url);
+        form.append('UserName', userName);
+        form.append('isSendEmail', isSendEmail);
         $.ajax({
-            url: "../ajax/ProjectAjax.ashx?cmd=Upload",
+            url: "http://192.168.1.148:66/ajax/ProjectAjax.ashx?cmd=Upload",
             type: "POST",
-            data: {
-                State, Message, UserName: userName, isSendEmail, Stars,
-                a3x_url: A3x_Url, ProID: Id, mx_url: Mx_Url, fbx_url: Fbx_Url, 
-            },
+            processData: false,
+            contentType: false,
+            data: form,
             success (data) {
+                console.log(data)
                 if (JSON.parse(data).code === "1") {utils.Swal.error(new Error(data.msg));return;};
                 _this.props.delChild();
                 _this.props.updateInfo();
@@ -209,7 +223,7 @@ class UpdateProject extends React.Component {
         this.setState({StarsList});
     }
     render () {
-        let {Id, State, Mx_Url, Fbx_Url, A3x_Url, Message, workState, isSendEmail, StarsList} = this.state;
+        let { Mx_Url, Fbx_Url, A3x_Url, Message, workState, isSendEmail, StarsList } = this.state;
         A3x_Url = A3x_Url ? A3x_Url : "";
         Message = Message ? Message : "";
         Mx_Url = Mx_Url ? Mx_Url : "";
@@ -234,13 +248,15 @@ class UpdateProject extends React.Component {
                     <label className="update-project-label">评分</label>
                     {StarsList}
                 </div>
-                <div className="update-project-item">
+                <div className="update-project-item input-group">
                     <label className="update-project-label update-project-label-small">建模成功</label>
                     <input className="update-project-checkbox" type="checkbox" name="workState" checked={workState} onChange={this.changeHandler} />
-                </div>
-                <div className="update-project-item">
                     <label className="update-project-label update-project-label-small">邮件提醒</label>
                     <input className="update-project-checkbox" type="checkbox" name="isSendEmail" checked={isSendEmail} onChange={this.changeHandler} />
+                </div>
+                <div className="update-project-item">
+                    <label className="update-project-label">预览缩略图</label>
+                    <input className="update-project-file" type="file" name="file" accept=".png, .jpg, .jpeg" onChange={this.changeFileHandler} />
                 </div>
                 <div className="update-project-item">
                     <label className="update-project-label">反馈内容</label>
@@ -303,11 +319,11 @@ class ProjectPage extends React.Component {
     }
     updateDataList (select, index) {
         return () => {
-            const _this = this, reg = /\d+/g, {userName, userlevel} = _this.state, children = [], pageList = [];
+            const _this = this, {userName, userlevel} = _this.state, children = [], pageList = [];
             $.ajax({
-                url: "../ajax/ProjectAjax.ashx?cmd=GetAll",
+                url: "http://192.168.1.148:66/ajax/ProjectAjax.ashx?cmd=GetAll",
                 type: "POST",
-                data: {UserName: userName, index, select},
+                data: { UserName: userName, index, select },
                 success (data) {
                     data = JSON.parse(data);
                     const Counts = data.Counts, totalPages = Math.ceil(Counts / 10), list = data.data, len = list.length,
@@ -363,7 +379,11 @@ class ProjectPage extends React.Component {
         document.removeEventListener("keydown", this.keydownHandler, false);
     }
     render(){
-        const {Counts, child, select, children, pageList, totalPages, index} = this.state;
+        const {Counts, child, children, pageList, userlevel} = this.state;
+        let Machine_Code = null;
+        if (userlevel === "1") {
+            Machine_Code = <th className="table-date am-hide-sm-only">无人机序列号</th>;
+        };
         return (
             <div id="content-page">
                 <div className="tpl-portlet-components">
@@ -390,6 +410,7 @@ class ProjectPage extends React.Component {
                                                 <th className="table-author am-hide-sm-only">状态</th>
                                                 <th className="table-author am-hide-sm-only">上传用户</th>
                                                 <th className="table-date am-hide-sm-only">创建日期</th>
+                                                {Machine_Code}
                                                 <th className="table-date am-hide-sm-only">评分</th>
                                                 <th className="table-set">操作</th>
                                             </tr>

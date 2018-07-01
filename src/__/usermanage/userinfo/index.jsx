@@ -60,7 +60,7 @@ class UserInfoPage extends React.Component {
         };
         _this.loading(true);
         $.ajax({
-            url: "../ajax/UserCheck.ashx?cmd=Change",
+            url: "http://192.168.1.148:66/ajax/UserCheck.ashx?cmd=Change",
             type: "POST",
             data: {Email, Mobile, DisplayName, UserName, Password, Superior},
             success (data) {
@@ -78,7 +78,7 @@ class UserInfoPage extends React.Component {
     componentWillMount () {
         const _this = this, {UserName, Superior} = _this.state;
         $.ajax({
-            url: "../ajax/UserCheck.ashx?cmd=GetUser",
+            url: "http://192.168.1.148:66/ajax/UserCheck.ashx?cmd=GetUser",
             type: "POST",
             data: {UserName, Superior},
             success (data) {

@@ -1,8 +1,5 @@
 import * as React from 'react';
-import { Link, hashHistory } from 'react-router';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import cx from 'classnames';
 
 class UploadFile extends React.Component {
     constructor (props) {

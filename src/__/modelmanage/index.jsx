@@ -9,6 +9,7 @@ class IndexPage extends React.Component {
         this.state = {
             Title: '',
             files: null,
+            Type: 'Build',
             UserName: this.props.config.user.userName,
             directory: '',
             thumbnali: '',
@@ -20,6 +21,7 @@ class IndexPage extends React.Component {
         this.clickHandler = this.clickHandler.bind(this);
         this.changeHandler = this.changeHandler.bind(this);
         this.changeFilesHandler = this.changeFilesHandler.bind(this);
+        this.changeModelTypeHandler = this.changeModelTypeHandler.bind(this);
         this.changeThumbnaliHandler = this.changeThumbnaliHandler.bind(this);
         this.changeModelSoureceFilesHandler = this.changeModelSoureceFilesHandler.bind(this);
     }
@@ -46,7 +48,7 @@ class IndexPage extends React.Component {
         this.setState({ directory, files });
     }
     clickHandler () {
-        const { files, Title, UserName, image_url } = this.state,
+        const { Type, files, Title, UserName, image_url } = this.state,
             FileName = files[0].webkitRelativePath;
         if (Title === "") {
             utils.Swal.error(new Error('未输入模型名称！'));
@@ -59,7 +61,6 @@ class IndexPage extends React.Component {
             return;
         };
         let index = 0, { length } = files;
-        console.log(Title, image_url, files)
         $.ajax({
             url: "http://192.168.1.148:66/ajax/Model_LibAjax.ashx?cmd=Add",
             type: "POST",
@@ -68,7 +69,7 @@ class IndexPage extends React.Component {
                 UserName,
                 image_url,
                 FileName,
-                Type: 'UserDefined',
+                Type
             },
             success (data) {
                 console.log(data)
@@ -98,7 +99,7 @@ class IndexPage extends React.Component {
                                             ID,
                                             UserName,
                                             Pro_ID: 289,
-                                            Type: "UserDefined",
+                                            Type,
                                             FileName: files[index - 1].webkitRelativePath,
                                         },
                                         success: function (_data) {
@@ -128,6 +129,10 @@ class IndexPage extends React.Component {
                 };
             }
         });
+    }
+    changeModelTypeHandler (ev) {
+        console.log(ev.target.selectedOptions[0].value)
+        this.setState({ Type: ev.target.selectedOptions[0].value });
     }
     componentDidMount () {
         const { files } = this;
@@ -165,6 +170,17 @@ class IndexPage extends React.Component {
                                             <button type="button" className="am-btn am-btn-primary" name="files" onClick={this.changeFilesHandler}>点击添加源文件</button>
                                             <input type="file" multiple="multiple" ref={ele => this.files = ele} id="files" onChange={this.changeModelSoureceFilesHandler} style={{ display: 'none' }} />
                                             <span style={{ padding: '0 1rem' }}>{ directory }</span>
+                                        </div>
+                                    </div>
+                                    <div className="am-form-group" style={{marginBottom: "40px"}}>
+                                        <label htmlFor="#" className="am-u-sm-3 am-form-label">模型类别</label>
+                                        <div className="am-u-sm-9">
+                                            <select data-am-selected id="selectdown" onChange={this.changeModelTypeHandler}>
+                                                <option value="Build">建筑类模型</option>
+                                                <option value="Green">绿化类模型</option>
+                                                <option value="Fac">设施类模型</option>
+                                                <option value="White">白模型</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div className="am-form-group" style={{marginBottom: "40px"}}>
